@@ -264,10 +264,19 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
   const isVisible = pullY > 0 || isRefreshing;
   const opacity = Math.min(1, Math.max(0, (pullY - 10) / 30));
 
+  // Natural dynamic scale calculation:
+  // - Starts compact at the top when pulling begins (scale ~0.55)
+  // - Grows naturally as user pulls down towards threshold (scale ~0.9)
+  // - In refresh state at the center of the black curtain, reaches clear centerpiece size (~1.15) without glow, bloom, or artificial lighting
+  const pullRatio = Math.min(1, pullY / THRESHOLD);
+  const logoScale = isRefreshing
+    ? 1.15
+    : Math.min(0.9, 0.55 + pullRatio * 0.35);
+
   // Height of black wave curtain
   const curtainHeight = isRefreshing
     ? '100vh'
-    : `${Math.max(0, pullY * 1.6 + 28)}px`;
+    : `${Math.max(0, pullY * 1.65 + 30)}px`;
 
   return (
     <div className="relative w-full min-h-screen">
@@ -316,16 +325,23 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
           className="relative z-10 w-full flex-1 flex flex-col items-center justify-center pointer-events-none px-4"
           style={{
             paddingTop: isRefreshing ? '0' : '6px',
-            transform: `scale(${Math.min(1, 0.85 + (pullY / THRESHOLD) * 0.15)})`,
-            transition: isPullingRef.current ? 'none' : 'transform 0.25s ease',
+            transition: isPullingRef.current ? 'none' : 'padding-top 0.4s ease',
           }}
         >
-          {/* Natural Hybit Logo Element - Clean, crisp, slightly larger format */}
-          <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center">
+          {/* Natural Hybit Logo Element - Clean vector without luminous bloom or lighting color */}
+          <div
+            className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center"
+            style={{
+              transform: `scale(${logoScale})`,
+              transition: isPullingRef.current
+                ? 'none'
+                : 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+          >
             <svg
               viewBox="0 0 100 100"
               fill="none"
-              className="w-full h-full select-none"
+              className="w-full h-full select-none relative z-10"
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
@@ -420,8 +436,8 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
             <path
               d="M 0 50 Q 180 85 360 50 T 720 50 T 1080 50 T 1440 50"
               fill="none"
-              stroke="rgba(0, 149, 255, 0.28)"
-              strokeWidth="1.5"
+              stroke="rgba(255, 255, 255, 0.08)"
+              strokeWidth="1"
             />
           </svg>
 
