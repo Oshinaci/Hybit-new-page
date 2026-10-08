@@ -267,7 +267,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
   // Height of black wave curtain
   const curtainHeight = isRefreshing
     ? '100vh'
-    : `${Math.max(0, pullY * 1.55 + 24)}px`;
+    : `${Math.max(0, pullY * 1.6 + 28)}px`;
 
   return (
     <div className="relative w-full min-h-screen">
@@ -315,13 +315,13 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
         <div
           className="relative z-10 w-full flex-1 flex flex-col items-center justify-center pointer-events-none px-4"
           style={{
-            paddingTop: isRefreshing ? '0' : '8px',
-            transform: `scale(${Math.min(1, 0.82 + (pullY / THRESHOLD) * 0.18)})`,
+            paddingTop: isRefreshing ? '0' : '6px',
+            transform: `scale(${Math.min(1, 0.85 + (pullY / THRESHOLD) * 0.15)})`,
             transition: isPullingRef.current ? 'none' : 'transform 0.25s ease',
           }}
         >
-          {/* Natural Hybit Logo Element - Clean, crisp, no artificial backlight */}
-          <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center">
+          {/* Natural Hybit Logo Element - Clean, crisp, slightly larger format */}
+          <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center">
             <svg
               viewBox="0 0 100 100"
               fill="none"
