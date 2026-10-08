@@ -7,7 +7,6 @@ interface LaunchLoadingScreenProps {
 
 export const LaunchLoadingScreen: React.FC<LaunchLoadingScreenProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
-  const [waveOffset, setWaveOffset] = useState(0);
 
   useEffect(() => {
     const startTime = performance.now();
@@ -27,7 +26,6 @@ export const LaunchLoadingScreen: React.FC<LaunchLoadingScreenProps> = ({ onComp
       ) * 100;
 
       setProgress(eased);
-      setWaveOffset(Math.sin(elapsed * 0.009) * 2.8);
 
       if (elapsed < duration) {
         animationFrameId = requestAnimationFrame(tick);
@@ -56,11 +54,11 @@ export const LaunchLoadingScreen: React.FC<LaunchLoadingScreenProps> = ({ onComp
 
   const leftFillPath = isFull
     ? 'M -5 -5 L 51 -5 L 51 105 L -5 105 Z'
-    : `M -5 -5 L ${leftX} -5 Q ${leftX + waveOffset} 35, ${leftX} 50 T ${leftX - waveOffset * 0.7} 65 T ${leftX} 105 L -5 105 Z`;
+    : `M -5 -5 L ${leftX} -5 L ${leftX} 105 L -5 105 Z`;
 
   const rightFillPath = isFull
     ? 'M 49 -5 L 105 -5 L 105 105 L 49 105 Z'
-    : `M 105 -5 L ${rightX} -5 Q ${rightX - waveOffset} 35, ${rightX} 50 T ${rightX + waveOffset * 0.7} 65 T ${rightX} 105 L 105 105 Z`;
+    : `M 105 -5 L ${rightX} -5 L ${rightX} 105 L 105 105 Z`;
 
   return (
     <motion.div
@@ -152,31 +150,6 @@ export const LaunchLoadingScreen: React.FC<LaunchLoadingScreenProps> = ({ onComp
               <rect x="64.5" y="32" width="12" height="36" rx="6" />
             </g>
           </g>
-
-          {/* 3. LAYER 3: Dynamic Leading Fluid Wave Meniscus Lines from Both Sides */}
-          {!isFull && p > 3 && (
-            <>
-              {/* Left wave front travelling rightward */}
-              <path
-                d={`M ${leftX} 20 Q ${leftX + waveOffset} 35, ${leftX} 50 T ${leftX - waveOffset * 0.7} 65 T ${leftX} 80`}
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="2"
-                strokeOpacity="0.85"
-                strokeLinecap="round"
-              />
-
-              {/* Right wave front travelling leftward */}
-              <path
-                d={`M ${rightX} 20 Q ${rightX - waveOffset} 35, ${rightX} 50 T ${rightX + waveOffset * 0.7} 65 T ${rightX} 80`}
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="2"
-                strokeOpacity="0.85"
-                strokeLinecap="round"
-              />
-            </>
-          )}
         </svg>
 
       </div>

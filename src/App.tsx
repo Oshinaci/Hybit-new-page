@@ -84,7 +84,7 @@ export default function App() {
   if (currentView === 'dashboard') {
     return (
       <PullToRefresh onRefresh={handleRefresh} disabled={isAppLaunching}>
-        <div key={refreshKey} className="min-h-screen bg-[#09090B] text-[#FAFAFA] font-sans antialiased overflow-x-hidden selection:bg-[#0095FF]/30 selection:text-white">
+        <div className="min-h-screen bg-[#09090B] text-[#FAFAFA] font-sans antialiased overflow-x-hidden selection:bg-[#0095FF]/30 selection:text-white">
           <DashboardLayout
             currentPage={dashboardPage}
             onPageChange={(page) => {
@@ -94,23 +94,25 @@ export default function App() {
             onBackToLanding={handleBackToLanding}
             onQuickAction={(action) => setActiveQuickAction(action)}
           >
-            {dashboardPage === 'dashboard' && (
-              <DashboardHome
-                onQuickAction={(action) => setActiveQuickAction(action)}
-                onNavigateToPortfolio={() => setDashboardPage('portfolio')}
-                onNavigateToActivity={() => setDashboardPage('activity')}
-              />
-            )}
+            <React.Fragment key={refreshKey}>
+              {dashboardPage === 'dashboard' && (
+                <DashboardHome
+                  onQuickAction={(action) => setActiveQuickAction(action)}
+                  onNavigateToPortfolio={() => setDashboardPage('portfolio')}
+                  onNavigateToActivity={() => setDashboardPage('activity')}
+                />
+              )}
 
-            {dashboardPage === 'portfolio' && (
-              <PortfolioView
-                onQuickAction={(action) => setActiveQuickAction(action)}
-              />
-            )}
+              {dashboardPage === 'portfolio' && (
+                <PortfolioView
+                  onQuickAction={(action) => setActiveQuickAction(action)}
+                />
+              )}
 
-            {dashboardPage === 'activity' && <ActivityView />}
+              {dashboardPage === 'activity' && <ActivityView />}
 
-            {(dashboardPage === 'wallet' || dashboardPage === 'settings') && <SettingsView />}
+              {(dashboardPage === 'wallet' || dashboardPage === 'settings') && <SettingsView />}
+            </React.Fragment>
           </DashboardLayout>
 
           {/* Interactive Quick Action Modals */}

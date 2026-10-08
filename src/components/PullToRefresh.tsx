@@ -15,7 +15,6 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
   const [pullY, setPullY] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [progress, setProgress] = useState(0); // 0 -> 100
-  const [waveOffset, setWaveOffset] = useState(0);
 
   const startYRef = useRef<number | null>(null);
   const startXRef = useRef<number | null>(null);
@@ -33,14 +32,15 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
     isRefreshingRef.current = isRefreshing;
   }, [isRefreshing]);
 
-  const MAX_PULL = 90;
-  const THRESHOLD = 60;
+  const MAX_PULL = 95;
+  const THRESHOLD = 65;
 
   const triggerRefreshAnimation = useCallback(() => {
     setIsRefreshing(true);
     isRefreshingRef.current = true;
     setPullY(THRESHOLD);
     pullYRef.current = THRESHOLD;
+    window.dispatchEvent(new CustomEvent('hybit:ptr-refreshing', { detail: { threshold: THRESHOLD } }));
 
     const startTime = performance.now();
     const duration = 1100; // 1.1s natural water fill meeting in center
@@ -53,24 +53,31 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
       const eased = Math.min(100, t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2) * 100;
 
       setProgress(eased);
-      setWaveOffset(Math.sin(elapsed * 0.015) * 2.2);
 
       if (elapsed < duration) {
         animFrameRef.current = requestAnimationFrame(step);
       } else {
         setProgress(100);
+        // Dispatch refreshing-complete event right as refresh finishes and curtain prepares to retract
+        window.dispatchEvent(new CustomEvent('hybit:ptr-completing'));
+
         // Execute refresh handler
         Promise.resolve(onRefreshRef.current())
           .catch(() => {})
           .finally(() => {
-            // Briefly linger at 100% full, then smoothly retract
+            // Briefly linger at 100% full, then smoothly retract black wave
             setTimeout(() => {
+              window.dispatchEvent(new CustomEvent('hybit:ptr-retracting'));
               setIsRefreshing(false);
               isRefreshingRef.current = false;
               setPullY(0);
               pullYRef.current = 0;
               setProgress(0);
-            }, 200);
+              // Dispatch reset event
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('hybit:ptr-reset'));
+              }, 450);
+            }, 220);
           });
       }
     };
@@ -109,7 +116,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
       const diffY = currentY - startYRef.current;
       const diffX = Math.abs(currentX - (startXRef.current || currentX));
 
-      // If user is mostly swiping horizontally, cancel PTR
+      // If user is swiping horizontally, cancel PTR
       if (!isPullingRef.current && diffX > Math.abs(diffY)) {
         startYRef.current = null;
         return;
@@ -125,17 +132,18 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
         const damped = Math.min(MAX_PULL, diffY * 0.42);
         pullYRef.current = damped;
         setPullY(damped);
+        window.dispatchEvent(new CustomEvent('hybit:ptr-pull', { detail: { pullY: damped, ratio: damped / THRESHOLD } }));
 
         // Preview fill ratio as user pulls down (0% -> 50%)
         const pullRatio = Math.min(1, damped / THRESHOLD);
         setProgress(pullRatio * 50);
-        setWaveOffset(Math.sin(damped * 0.1) * 1.2);
       } else if (diffY <= 0) {
         startYRef.current = null;
         isPullingRef.current = false;
         pullYRef.current = 0;
         setPullY(0);
         setProgress(0);
+        window.dispatchEvent(new CustomEvent('hybit:ptr-pull', { detail: { pullY: 0, ratio: 0 } }));
       }
     };
 
@@ -156,6 +164,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
         pullYRef.current = 0;
         setPullY(0);
         setProgress(0);
+        window.dispatchEvent(new CustomEvent('hybit:ptr-pull', { detail: { pullY: 0, ratio: 0 } }));
       }
     };
 
@@ -177,15 +186,15 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
       }
 
       const diffY = e.clientY - startYRef.current;
-      if (diffY > 10 && getScrollTop() <= 2) {
+      if (diffY > 8 && getScrollTop() <= 2) {
         isPullingRef.current = true;
         const damped = Math.min(MAX_PULL, diffY * 0.42);
         pullYRef.current = damped;
         setPullY(damped);
+        window.dispatchEvent(new CustomEvent('hybit:ptr-pull', { detail: { pullY: damped, ratio: damped / THRESHOLD } }));
 
         const pullRatio = Math.min(1, damped / THRESHOLD);
         setProgress(pullRatio * 50);
-        setWaveOffset(Math.sin(damped * 0.1) * 1.2);
       }
     };
 
@@ -205,10 +214,11 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
         pullYRef.current = 0;
         setPullY(0);
         setProgress(0);
+        window.dispatchEvent(new CustomEvent('hybit:ptr-pull', { detail: { pullY: 0, ratio: 0 } }));
       }
     };
 
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchstart', onTouchStart, { passive: false });
     window.addEventListener('touchmove', onTouchMove, { passive: false });
     window.addEventListener('touchend', onTouchEnd);
     window.addEventListener('touchcancel', onTouchEnd);
@@ -245,37 +255,73 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
 
   const topFillPath = isFull
     ? 'M -5 -5 L 105 -5 L 105 51 L -5 51 Z'
-    : `M -5 -5 L 105 -5 L 105 ${topY} Q 75 ${topY + waveOffset}, 50 ${topY} T 0 ${topY - waveOffset * 0.7} L -5 ${topY} Z`;
+    : `M -5 -5 L 105 -5 L 105 ${topY} L -5 ${topY} Z`;
 
   const bottomFillPath = isFull
     ? 'M -5 49 L 105 49 L 105 105 L -5 105 Z'
-    : `M -5 105 L 105 105 L 105 ${bottomY} Q 75 ${bottomY - waveOffset}, 50 ${bottomY} T 0 ${bottomY + waveOffset * 0.7} L -5 ${bottomY} Z`;
+    : `M -5 105 L 105 105 L 105 ${bottomY} L -5 ${bottomY} Z`;
 
   const isVisible = pullY > 0 || isRefreshing;
   const opacity = Math.min(1, Math.max(0, (pullY - 10) / 30));
 
+  // Height of black wave curtain
+  const curtainHeight = isRefreshing
+    ? '100vh'
+    : `${Math.max(0, pullY * 1.55 + 24)}px`;
+
   return (
     <div className="relative w-full min-h-screen">
+      <style>{`
+        @keyframes ptrWaveFlow {
+          0% { transform: translate3d(0, 0, 0); }
+          50% { transform: translate3d(-25%, 0, 0); }
+          100% { transform: translate3d(0, 0, 0); }
+        }
+        @keyframes ptrWaveFlowAlt {
+          0% { transform: translate3d(-25%, 0, 0); }
+          50% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-25%, 0, 0); }
+        }
+        .animate-ptrWaveFlow {
+          animation: ptrWaveFlow 8s ease-in-out infinite;
+        }
+        .animate-ptrWaveFlowAlt {
+          animation: ptrWaveFlowAlt 5.5s ease-in-out infinite;
+        }
+      `}</style>
+
       {/* 
-        CLEAN, NATURAL FLOATING HYBIT LOGO ICON:
-        - NO Card, NO Box, NO Background container
-        - NO excessive glow / halo lighting: 100% natural, crisp matte wireframe
-        - Smooth water filling meeting in center
+        EFEK GAYA GELOMBANG HITAM (BLACK WAVE EFFECT):
+        - Conceals Hybit screen as user pulls down from top
+        - Features dynamic fluid wave crests in obsidian and dark graphite
+        - Envelops view during refresh while water filling animation executes in center
+        - Seamlessly retracts upward upon completion
       */}
-      {isVisible && (
+      <div
+        className="fixed inset-x-0 top-0 pointer-events-none select-none z-40 overflow-hidden flex flex-col justify-between"
+        style={{
+          height: curtainHeight,
+          opacity: isVisible ? 1 : 0,
+          transform: !isRefreshing && pullY === 0 ? 'translate3d(0, -100%, 0)' : 'translate3d(0, 0, 0)',
+          transition: isPullingRef.current
+            ? 'none'
+            : 'height 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
+        }}
+      >
+        {/* Solid Black Obsidian Mask Body */}
+        <div className="absolute inset-0 bg-[#09090B]" />
+
+        {/* Central Logo Container within Black Wave Area */}
         <div
-          className="fixed left-0 right-0 z-50 flex items-center justify-center pointer-events-none select-none"
+          className="relative z-10 w-full flex-1 flex flex-col items-center justify-center pointer-events-none px-4"
           style={{
-            top: `${Math.max(12, pullY * 0.75)}px`,
-            opacity: isRefreshing ? 1 : opacity,
-            transform: `scale(${Math.min(1, 0.78 + (pullY / THRESHOLD) * 0.22)})`,
-            transition: isPullingRef.current
-              ? 'none'
-              : 'top 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, transform 0.25s ease',
+            paddingTop: isRefreshing ? '0' : '8px',
+            transform: `scale(${Math.min(1, 0.82 + (pullY / THRESHOLD) * 0.18)})`,
+            transition: isPullingRef.current ? 'none' : 'transform 0.25s ease',
           }}
         >
           {/* Natural Hybit Logo Element - Clean, crisp, no artificial backlight */}
-          <div className="relative w-10 h-10 flex items-center justify-center">
+          <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center">
             <svg
               viewBox="0 0 100 100"
               fill="none"
@@ -296,8 +342,8 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
                 </clipPath>
               </defs>
 
-              {/* 1. LAYER 1: Natural Base Wireframe of Hybit Element (No glowing bloom) */}
-              <g opacity="0.35">
+              {/* 1. LAYER 1: Natural Base Wireframe of Hybit Element */}
+              <g opacity="0.38">
                 {/* Left Column Capsule */}
                 <rect
                   x="23.5"
@@ -355,43 +401,65 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
                   <rect x="64.5" y="32" width="12" height="36" rx="6" />
                 </g>
               </g>
-
-              {/* 3. LAYER 3: Natural Leading Fluid Wave Meniscus Lines from Top and Bottom */}
-              {!isFull && p > 3 && (
-                <>
-                  {/* Top wave meniscus moving downward toward center */}
-                  <path
-                    d={`M 22 ${topY} Q 50 ${topY + waveOffset * 0.9}, 78 ${topY}`}
-                    fill="none"
-                    stroke="#FFFFFF"
-                    strokeWidth="2"
-                    strokeOpacity="0.9"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Bottom wave meniscus moving upward toward center */}
-                  <path
-                    d={`M 22 ${bottomY} Q 50 ${bottomY - waveOffset * 0.9}, 78 ${bottomY}`}
-                    fill="none"
-                    stroke="#FFFFFF"
-                    strokeWidth="2"
-                    strokeOpacity="0.9"
-                    strokeLinecap="round"
-                  />
-                </>
-              )}
             </svg>
           </div>
         </div>
-      )}
 
-      {/* Main Content with smooth pull translation */}
+        {/* Dynamic Black Waves along the bottom edge of the black curtain */}
+        <div className="relative w-full h-14 sm:h-20 overflow-hidden shrink-0 pointer-events-none -mt-1">
+          {/* Wave 1: Rolling charcoal fluid wave */}
+          <svg
+            viewBox="0 0 1440 100"
+            preserveAspectRatio="none"
+            className="absolute bottom-0 left-0 w-[200%] h-full pointer-events-none animate-ptrWaveFlow opacity-75"
+          >
+            <path
+              d="M 0 0 L 1440 0 L 1440 50 Q 1260 15 1080 50 T 720 50 T 360 50 T 0 50 Z"
+              fill="#14141C"
+            />
+            <path
+              d="M 0 50 Q 180 85 360 50 T 720 50 T 1080 50 T 1440 50"
+              fill="none"
+              stroke="rgba(0, 149, 255, 0.28)"
+              strokeWidth="1.5"
+            />
+          </svg>
+
+          {/* Wave 2: Deep Obsidian Crest Wave matching the #09090B background */}
+          <svg
+            viewBox="0 0 1440 100"
+            preserveAspectRatio="none"
+            className="absolute bottom-0 left-0 w-[200%] h-full pointer-events-none animate-ptrWaveFlowAlt"
+          >
+            <path
+              d="M 0 0 L 1440 0 L 1440 35 Q 1260 75 1080 35 T 720 35 T 360 35 T 0 35 Z"
+              fill="#09090B"
+            />
+            <path
+              d="M 0 35 Q 180 -5 360 35 T 720 35 T 1080 35 T 1440 35"
+              fill="none"
+              stroke="rgba(255, 255, 255, 0.15)"
+              strokeWidth="1"
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* 
+        HYBIT VIEWPORT CONTENT:
+        - Physically moves down following the user's pull down motion ('tampilan Hybit juga mengikuti nya bergerak')
+        - Dimmed and veiled beneath the black wave curtain ('sembunyikan tampilan nya dengan efek gaya gelombang hitam')
+        - Smoothly springs back to origin upon refresh completion
+      */}
       <div
+        className="w-full"
         style={{
-          transform: pullY > 0 ? `translateY(${pullY * 0.38}px)` : 'none',
+          transform: `translate3d(0, ${isRefreshing ? 60 : pullY}px, 0)`,
+          opacity: isRefreshing ? 0.08 : Math.max(0.2, 1 - (pullY / 130)),
+          filter: isRefreshing ? 'blur(4px)' : pullY > 15 ? `blur(${Math.min(3, (pullY - 15) / 25)}px)` : 'none',
           transition: isPullingRef.current
             ? 'none'
-            : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            : 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, filter 0.35s ease',
         }}
       >
         {children}
