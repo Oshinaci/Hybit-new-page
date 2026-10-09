@@ -139,6 +139,9 @@ export interface TranslationDictionary {
   currencyChangedToast: (currName: string, currCode: string) => string;
   pullToRefreshTitle: string;
   pullToRefreshMessage: string;
+  hybitIdTitle: string;
+  hybitIdMessage: string;
+  hybitIdBadge: string;
   
   // Quick Action Modals & Global Terms
   sendTitle: string;
@@ -274,6 +277,9 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     currencyChangedToast: (currName, currCode) => `Mata uang utama diubah ke ${currName} (${currCode}).`,
     pullToRefreshTitle: 'Dasbor Berhasil Diperbarui',
     pullToRefreshMessage: 'Saldo dompet, status jaringan, dan data portofolio telah disinkronkan.',
+    hybitIdTitle: 'Hybit ID',
+    hybitIdMessage: 'Fitur Hybit ID saat ini sedang dalam tahap pengembangan dan akan segera hadir.',
+    hybitIdBadge: 'Segera Hadir',
     
     sendTitle: 'Kirim Aset Kripto',
     receiveTitle: 'Terima Aset Kripto',
@@ -406,6 +412,9 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     currencyChangedToast: (currName, currCode) => `Primary currency changed to ${currName} (${currCode}).`,
     pullToRefreshTitle: 'Dashboard Refreshed',
     pullToRefreshMessage: 'Wallet balances, network status, and portfolio data have been synchronized.',
+    hybitIdTitle: 'Hybit ID',
+    hybitIdMessage: 'The Hybit ID feature is currently under active development and will be available soon.',
+    hybitIdBadge: 'Coming Soon',
     
     sendTitle: 'Send Crypto Assets',
     receiveTitle: 'Receive Crypto Assets',

@@ -13,6 +13,7 @@ import {
   Layers,
   CreditCard,
 } from 'lucide-react';
+import { HybitIcon } from '../components/icons/NetworkIcons';
 
 export type ToastType =
   | 'success'
@@ -25,7 +26,8 @@ export type ToastType =
   | 'swap'
   | 'bridge'
   | 'buy'
-  | 'copy';
+  | 'copy'
+  | 'hybit-id';
 
 export interface ToastItem {
   id: string;
@@ -78,8 +80,8 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const showComingSoon = useCallback(
     (featureName: string = 'Mobile App') => {
       showToast(
-        `${featureName} — Segera Hadir`,
-        'Aplikasi native iOS & Android sedang dalam tahap uji coba early access. Versi Web sudah aktif & siap digunakan.',
+        featureName,
+        'Aplikasi native iOS & Android sedang dalam tahap uji coba. Versi Web sudah aktif dan siap digunakan.',
         'coming-soon'
       );
     },
@@ -107,17 +109,20 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 className={`pointer-events-auto w-full rounded-2xl p-3.5 shadow-2xl shadow-black/80 backdrop-blur-2xl flex items-start gap-3 text-white border ${
                   isError
                     ? 'bg-[#181114]/95 border-rose-500/30'
-                    : 'bg-[#141419]/95 border-white/20'
+                    : 'bg-[#141419]/95 border-white/10'
                 }`}
               >
                 {/* Icon based on toast type */}
                 <div
-                  className={`p-2 rounded-xl shrink-0 mt-0.5 ${
+                  className={`rounded-xl shrink-0 mt-0.5 flex items-center justify-center ${
                     isError
-                      ? 'bg-rose-500/20 text-rose-400'
-                      : 'bg-white/[0.08]'
+                      ? 'p-2 bg-rose-500/20 text-rose-400'
+                      : toast.type === 'hybit-id'
+                      ? 'p-1.5 bg-white/[0.06] text-white'
+                      : 'p-2 bg-white/[0.08]'
                   }`}
                 >
+                  {toast.type === 'hybit-id' && <HybitIcon size={20} className="shrink-0" />}
                   {toast.type === 'coming-soon' && <Smartphone className="w-4 h-4 text-[#0095FF]" />}
                   {toast.type === 'success' && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
                   {isError && <XCircle className="w-4 h-4 text-rose-400" />}

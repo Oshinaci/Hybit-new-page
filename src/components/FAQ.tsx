@@ -11,7 +11,7 @@ export const FAQ: React.FC = () => {
       id: 'faq-1',
       question: 'How is Hybit as easy as GoPay?',
       answer:
-        'Traditional crypto wallets overwhelm users with 24-word seed phrases, manual RPC network configurations, and cryptic hex addresses. Hybit removes this complexity entirely. You create your wallet in 5 seconds with Passkeys or Face ID, send funds using contact phone numbers or QR codes, and pay with near-zero friction—delivering the familiar simplicity of GoPay or Apple Cash while preserving true Web3 self-custody.',
+        'Traditional crypto wallets overwhelm users with 24-word seed phrases, manual RPC network configurations, and cryptic hex addresses. Hybit removes this complexity entirely. You create your wallet in 5 seconds with Passkeys or Face ID, send funds using contact phone numbers or QR codes, and pay with near-zero friction, delivering the familiar simplicity of GoPay or Apple Cash while preserving true Web3 self-custody.',
       category: 'general',
     },
     {

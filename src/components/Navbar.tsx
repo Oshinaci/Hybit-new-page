@@ -90,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onLaunchApp, onDownload }) => {
             </nav>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
               <button
                 onClick={onLaunchApp}
                 className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide text-white bg-[#0095FF] hover:bg-[#0080E0] shadow-sm active:scale-[0.98] transition-colors duration-150 cursor-pointer"

@@ -27,13 +27,20 @@ export const HybitMark: React.FC<{
   </svg>
 );
 
-export const HybitIcon: React.FC<{ className?: string; size?: number }> = ({
+export const HybitIcon: React.FC<{
+  className?: string;
+  size?: number;
+  transparentBg?: boolean;
+  fill?: string;
+}> = ({
   className = '',
   size = 32,
+  transparentBg = false,
+  fill = '#FFFFFF',
 }) => {
   return (
     <div
-      className={`relative flex items-center justify-center shrink-0 select-none shadow-sm transition-transform duration-150 hover:scale-[1.02] ${className}`}
+      className={`relative flex items-center justify-center shrink-0 select-none ${transparentBg ? '' : 'shadow-sm'} transition-transform duration-150 hover:scale-[1.02] ${className}`}
       style={{ width: size, height: size }}
     >
       <svg
@@ -42,20 +49,20 @@ export const HybitIcon: React.FC<{ className?: string; size?: number }> = ({
         className="w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Background matching Card Balance (#0095FF) */}
-        <rect width="100" height="100" rx="26" fill="#0095FF" />
+        {/* Background matching Card Balance (#0095FF) unless transparentBg is true */}
+        {!transparentBg && <rect width="100" height="100" rx="26" fill="#0095FF" />}
 
         {/* Left Column Capsule */}
-        <rect x="23.5" y="32" width="12" height="36" rx="6" fill="#FFFFFF" />
+        <rect x="23.5" y="32" width="12" height="36" rx="6" fill={fill} />
 
         {/* Center Column Top Segment */}
-        <path d="M 44 47.2 L 44 25 A 6 6 0 0 1 56 25 L 56 47.2 Z" fill="#FFFFFF" />
+        <path d="M 44 47.2 L 44 25 A 6 6 0 0 1 56 25 L 56 47.2 Z" fill={fill} />
 
         {/* Center Column Bottom Segment */}
-        <path d="M 44 52.8 L 56 52.8 L 56 75 A 6 6 0 0 1 44 75 Z" fill="#FFFFFF" />
+        <path d="M 44 52.8 L 56 52.8 L 56 75 A 6 6 0 0 1 44 75 Z" fill={fill} />
 
         {/* Right Column Capsule */}
-        <rect x="64.5" y="32" width="12" height="36" rx="6" fill="#FFFFFF" />
+        <rect x="64.5" y="32" width="12" height="36" rx="6" fill={fill} />
       </svg>
     </div>
   );

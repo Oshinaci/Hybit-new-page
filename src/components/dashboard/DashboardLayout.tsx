@@ -13,7 +13,7 @@ import {
   Repeat,
 } from 'lucide-react';
 import { DashboardPage, NetworkOption, NotificationItem } from '../../types/dashboard';
-import { EthereumIcon, BaseIcon, SolanaIcon, ArbitrumIcon, PolygonIcon, OptimismIcon } from '../icons/NetworkIcons';
+import { EthereumIcon, BaseIcon, SolanaIcon, ArbitrumIcon, PolygonIcon, OptimismIcon, HybitIcon } from '../icons/NetworkIcons';
 import { useAppSettings } from '../../context/AppSettingsContext';
 import { useToast } from '../../context/ToastContext';
 
@@ -154,9 +154,25 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             </button>
           </div>
 
-          {/* Right: Network Selector Card + Notification Bell Card */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Right: Hybit ID Card + Network Selector Card + Notification Bell Card */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
             
+            {/* Hybit ID Button */}
+            <button
+              onClick={() => showToast(t.hybitIdTitle, t.hybitIdMessage, 'hybit-id')}
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#141419] border border-white/10 hover:border-white/20 hover:bg-[#181820] shadow-sm shadow-black/40 text-xs font-medium text-neutral-200 hover:text-white transition-all duration-150 active:scale-[0.98] cursor-pointer select-none group"
+              title="Hybit ID"
+              aria-label="Hybit ID"
+            >
+              <HybitIcon
+                size={16}
+                transparentBg={true}
+                fill="#FFFFFF"
+                className="shrink-0 opacity-90 group-hover:opacity-100 transition-opacity"
+              />
+              <span className="font-semibold text-white tracking-tight text-xs">Hybit ID</span>
+            </button>
+
             {/* Network Selector Card */}
             <div className="relative" ref={networkRef}>
               <button

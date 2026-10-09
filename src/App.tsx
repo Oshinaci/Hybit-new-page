@@ -21,7 +21,6 @@ import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { DashboardHome } from './components/dashboard/DashboardHome';
 import { PortfolioView } from './components/dashboard/PortfolioView';
 import { ActivityView } from './components/dashboard/ActivityView';
-import { WalletView } from './components/dashboard/WalletView';
 import { SettingsView } from './components/dashboard/SettingsView';
 import { QuickActionModals } from './components/dashboard/QuickActionModals';
 import { DashboardPage } from './types/dashboard';

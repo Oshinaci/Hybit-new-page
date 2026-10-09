@@ -106,7 +106,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 </button>
               ))}
 
-              <div className="pt-4 mt-2 border-t border-white/[0.06]">
+              <div className="pt-4 mt-2 border-t border-white/[0.06] space-y-1">
                 <button
                   onClick={handleDownloadClick}
                   className="flex items-center justify-between w-full px-3 py-3 rounded-xl text-base font-medium text-neutral-300 hover:text-white hover:bg-white/[0.05] transition-all text-left"
