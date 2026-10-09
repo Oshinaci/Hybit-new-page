@@ -11,7 +11,7 @@ import {
   Mail,
   ChevronDown,
   Languages,
-  Zap,
+  LogOut,
 } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import {
@@ -21,7 +21,11 @@ import {
   AppLanguage,
 } from '../../context/AppSettingsContext';
 
-export const SettingsView: React.FC = () => {
+interface SettingsViewProps {
+  onNavigateToDashboard?: () => void;
+}
+
+export const SettingsView: React.FC<SettingsViewProps> = ({ onNavigateToDashboard }) => {
   const { showToast } = useToast();
   const {
     language,
@@ -32,6 +36,10 @@ export const SettingsView: React.FC = () => {
     currentCurrency,
     t,
     formatCurrency,
+    isWalletConnected,
+    logoutWallet,
+    walletAddress,
+    walletEmail,
   } = useAppSettings();
 
   const [passkeyEnabled, setPasskeyEnabled] = useState(true);
@@ -39,20 +47,17 @@ export const SettingsView: React.FC = () => {
   const [autoLockOpen, setAutoLockOpen] = useState(false);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [gasPreset, setGasPreset] = useState<'standard' | 'fast' | 'instant'>('fast');
-  const [gasPresetOpen, setGasPresetOpen] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   // 1 Wallet Only - Privy Embedded Wallet tied 1 Email : 1 Wallet
-  const userMockEmail = 'kaitosogen@gmail.com';
   const walletData = {
     name: 'Privy Embedded Wallet',
-    email: userMockEmail,
+    email: walletEmail,
     authProvider: 'Privy Web3 Auth',
     type: 'Non-Custodial MPC · 1 Email : 1 Wallet',
-    address: '0x7F2a45B083C29E41c7F3bDa208B49a37e89e8b1e',
-    rawBalanceUsd: 42918.24,
-    status: t.walletVerified,
+    address: walletAddress,
+    rawBalanceUsd: isWalletConnected ? 42918.24 : 0,
+    status: isWalletConnected ? t.walletVerified : (language === 'id' ? 'Sesi Terputus' : 'Disconnected'),
   };
 
   const autoLockOptions = [
@@ -63,14 +68,15 @@ export const SettingsView: React.FC = () => {
     { id: 'never', label: language === 'id' ? 'Jangan Pernah' : 'Never', desc: language === 'id' ? 'Tidak disarankan pada perangkat bersama' : 'Not recommended for shared devices' },
   ];
 
-  const gasPresetOptions = [
-    { id: 'standard' as const, label: language === 'id' ? 'Standar (Ekonomis)' : 'Standard (Economic)', desc: language === 'id' ? 'Biaya hemat · ~1.2s' : 'Economic fee · ~1.2s', badge: 'Standar' },
-    { id: 'fast' as const, label: language === 'id' ? 'Cepat (Direkomendasikan)' : 'Fast (Recommended)', desc: language === 'id' ? 'Prioritas tinggi · Sub-detik' : 'High priority · Sub-second', badge: 'Cepat' },
-    { id: 'instant' as const, label: language === 'id' ? 'Instan (MEV Boost)' : 'Instant (MEV Boost)', desc: language === 'id' ? 'Proteksi front-running' : 'MEV frontrun protection', badge: 'Instan' },
-  ];
-
   const currentAutoLockObj = autoLockOptions.find((o) => o.id === autoLockTime) || autoLockOptions[1];
-  const currentGasPresetObj = gasPresetOptions.find((o) => o.id === gasPreset) || gasPresetOptions[1];
+
+  const handleLogout = () => {
+    logoutWallet();
+    showToast(t.logoutSuccessTitle, t.logoutSuccessMessage, 'info');
+    if (onNavigateToDashboard) {
+      onNavigateToDashboard();
+    }
+  };
 
   const handleCopy = (address: string, id: string) => {
     navigator.clipboard?.writeText(address);
@@ -111,10 +117,17 @@ export const SettingsView: React.FC = () => {
                 : '1 Email · 1 Wallet embedded architecture. No seed phrase required.'}
             </p>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>{language === 'id' ? 'Privy Terhubung' : 'Privy Connected'}</span>
-          </div>
+          {isWalletConnected ? (
+            <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>{language === 'id' ? 'Privy Terhubung' : 'Privy Connected'}</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-mono">
+              <span className="w-2 h-2 rounded-full bg-neutral-500" />
+              <span>{language === 'id' ? 'Sesi Terputus' : 'Session Disconnected'}</span>
+            </div>
+          )}
         </div>
 
         <div className="pt-2 space-y-4">
@@ -232,7 +245,6 @@ export const SettingsView: React.FC = () => {
                   setAutoLockOpen(!autoLockOpen);
                   setCurrencyOpen(false);
                   setLanguageOpen(false);
-                  setGasPresetOpen(false);
                 }}
                 className={`flex items-center justify-between gap-2.5 min-w-[140px] sm:min-w-[160px] px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all duration-200 cursor-pointer shadow-sm active:scale-[0.98] ${
                   autoLockOpen
@@ -335,7 +347,6 @@ export const SettingsView: React.FC = () => {
                   setLanguageOpen(!languageOpen);
                   setCurrencyOpen(false);
                   setAutoLockOpen(false);
-                  setGasPresetOpen(false);
                 }}
                 className={`flex items-center justify-between gap-2.5 min-w-[150px] sm:min-w-[170px] px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all duration-200 cursor-pointer shadow-sm active:scale-[0.98] ${
                   languageOpen
@@ -437,7 +448,6 @@ export const SettingsView: React.FC = () => {
                   setCurrencyOpen(!currencyOpen);
                   setAutoLockOpen(false);
                   setLanguageOpen(false);
-                  setGasPresetOpen(false);
                 }}
                 className={`flex items-center justify-between gap-2.5 min-w-[150px] sm:min-w-[170px] px-3.5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 cursor-pointer shadow-sm active:scale-[0.98] ${
                   currencyOpen
@@ -519,104 +529,33 @@ export const SettingsView: React.FC = () => {
             </div>
           </div>
 
-          {/* Custom Hybit Theme Dropdown: Default Gas Preset */}
-          <div className="py-4.5 flex items-center justify-between gap-4 sm:gap-8 relative">
-            <div className="flex-1 min-w-0 pr-2 sm:pr-4">
-              <div className="text-sm font-semibold text-white flex items-center gap-2">
-                <span>{language === 'id' ? 'Preset Gas Default' : 'Default Gas Preset'}</span>
-              </div>
-              <p className="text-xs text-neutral-400 mt-1 leading-relaxed max-w-lg">
-                {language === 'id'
-                  ? 'Kecepatan eksekusi transaksi default dan strategi prioritas biaya gas on-chain.'
-                  : 'Default execution speed and on-chain gas fee priority strategy.'}
-              </p>
-            </div>
-
-            {/* Custom Dropdown Trigger - Pinned to the Right */}
-            <div className="relative shrink-0 ml-auto">
-              <button
-                type="button"
-                onClick={() => {
-                  setGasPresetOpen(!gasPresetOpen);
-                  setCurrencyOpen(false);
-                  setAutoLockOpen(false);
-                  setLanguageOpen(false);
-                }}
-                className={`flex items-center justify-between gap-2.5 min-w-[150px] sm:min-w-[170px] px-3.5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 cursor-pointer shadow-sm active:scale-[0.98] ${
-                  gasPresetOpen
-                    ? 'bg-[#171720] border border-[#0095FF] ring-2 ring-[#0095FF]/20 text-white shadow-lg shadow-[#0095FF]/10'
-                    : 'bg-[#141419] border border-white/10 hover:border-white/20 hover:bg-[#1a1a22] text-neutral-200'
-                }`}
-              >
-                <div className="flex items-center gap-2 min-w-0">
-                  <Zap className="w-3.5 h-3.5 text-[#0095FF] shrink-0" />
-                  <span className="font-semibold text-white truncate">{currentGasPresetObj.badge}</span>
+          {/* Log Out Row (Replacing Default Gas Preset - strictly only visible when user is connected) */}
+          {isWalletConnected && (
+            <div className="py-4.5 flex items-center justify-between gap-4 sm:gap-8 relative">
+              <div className="flex-1 min-w-0 pr-2 sm:pr-4">
+                <div className="text-sm font-semibold text-white flex items-center gap-2">
+                  <span>{t.logoutTitle}</span>
                 </div>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-200 shrink-0 ${
-                    gasPresetOpen ? 'rotate-180 text-[#0095FF]' : ''
-                  }`}
-                />
-              </button>
+                <p className="text-xs text-neutral-400 mt-1 leading-relaxed max-w-lg">
+                  {t.logoutDesc}
+                </p>
+              </div>
 
-              <AnimatePresence>
-                {gasPresetOpen && (
-                  <>
-                    {/* Click outside backdrop */}
-                    <div
-                      className="fixed inset-0 z-40"
-                      onClick={() => setGasPresetOpen(false)}
-                    />
-                    <motion.div
-                      initial={{ opacity: 0, y: 4, scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 4, scale: 0.98 }}
-                      transition={{ duration: 0.14, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute right-0 mt-2 w-64 sm:w-72 rounded-2xl bg-[#141419]/95 border border-white/10 shadow-2xl shadow-black/90 p-1.5 z-50 backdrop-blur-2xl"
-                    >
-                      <div className="px-3 py-1.5 text-[10px] uppercase font-mono text-neutral-400 font-semibold border-b border-white/[0.08] mb-1">
-                        {language === 'id' ? 'Pilih Kecepatan Gas Default' : 'Select Default Gas Preset'}
-                      </div>
-                      <div className="space-y-1">
-                        {gasPresetOptions.map((g) => (
-                          <button
-                            key={g.id}
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setGasPreset(g.id);
-                              setGasPresetOpen(false);
-                              handleSaveNotice(
-                                language === 'id'
-                                  ? `Preset Gas diubah menjadi: ${g.label}`
-                                  : `Default Gas preset set to: ${g.label}`
-                              );
-                            }}
-                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors cursor-pointer text-left ${
-                              gasPreset === g.id
-                                ? 'bg-[#0095FF]/15 text-white font-semibold border border-[#0095FF]/30'
-                                : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
-                            }`}
-                          >
-                            <div>
-                              <div className={gasPreset === g.id ? 'text-[#0095FF] font-semibold' : 'text-neutral-200'}>
-                                {g.label}
-                              </div>
-                              <div className="text-[10px] text-neutral-400 mt-0.5">{g.desc}</div>
-                            </div>
-                            {gasPreset === g.id && (
-                              <Check className="w-3.5 h-3.5 text-[#0095FF] shrink-0 ml-2" />
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
+              {/* Logout Action Button */}
+              <div className="relative shrink-0 ml-auto">
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 hover:text-rose-300 border border-rose-500/20 hover:border-rose-500/30 text-xs font-semibold transition-all duration-150 cursor-pointer active:scale-[0.98] shadow-sm select-none"
+                  title={t.logoutTitle}
+                  aria-label={t.logoutTitle}
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>{t.logoutButton}</span>
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

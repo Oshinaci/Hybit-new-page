@@ -115,7 +115,7 @@ export const Ecosystem: React.FC = () => {
       case 'ethereum':
         return <EthereumIcon className="w-6 h-6 text-indigo-400" />;
       case 'base':
-        return <BaseIcon className="w-6 h-6 text-[#0095FF]" />;
+        return <BaseIcon className="w-6 h-6 text-[#0052FF]" />;
       case 'arbitrum':
         return <ArbitrumIcon className="w-6 h-6 text-blue-400" />;
       case 'optimism':

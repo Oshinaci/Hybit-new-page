@@ -143,6 +143,17 @@ export interface TranslationDictionary {
   hybitIdMessage: string;
   hybitIdBadge: string;
   
+  // Wallet Connection & Logout
+  logoutButton: string;
+  logoutTitle: string;
+  logoutDesc: string;
+  logoutSuccessTitle: string;
+  logoutSuccessMessage: string;
+  connectWallet: string;
+  walletConnectedToast: string;
+  walletDisconnected: string;
+  walletDisconnectedDesc: string;
+  
   // Quick Action Modals & Global Terms
   sendTitle: string;
   receiveTitle: string;
@@ -281,6 +292,16 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     hybitIdMessage: 'Fitur Hybit ID saat ini sedang dalam tahap pengembangan dan akan segera hadir.',
     hybitIdBadge: 'Segera Hadir',
     
+    logoutButton: 'Keluar',
+    logoutTitle: 'Keluar dari Dompet',
+    logoutDesc: 'Tutup sesi Privy MPC terenkripsi pada perangkat ini. Saldo dan kunci tetap aman di enclave.',
+    logoutSuccessTitle: 'Berhasil Keluar',
+    logoutSuccessMessage: 'Sesi dompet Anda telah ditutup dengan aman. Anda tetap berada di dashboard.',
+    connectWallet: 'Hubungkan Dompet',
+    walletConnectedToast: 'Dompet Privy MPC berhasil terhubung.',
+    walletDisconnected: 'Dompet Belum Terhubung',
+    walletDisconnectedDesc: 'Hubungkan dompet Privy MPC Anda untuk melihat saldo, riwayat, dan bertransaksi.',
+    
     sendTitle: 'Kirim Aset Kripto',
     receiveTitle: 'Terima Aset Kripto',
     swapTitle: 'Tukar Token',
@@ -416,6 +437,16 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     hybitIdMessage: 'The Hybit ID feature is currently under active development and will be available soon.',
     hybitIdBadge: 'Coming Soon',
     
+    logoutButton: 'Log Out',
+    logoutTitle: 'Log Out Wallet',
+    logoutDesc: 'Disconnect active Privy MPC session on this device. Your keys remain safe in enclave.',
+    logoutSuccessTitle: 'Logged Out',
+    logoutSuccessMessage: 'Your wallet session has been disconnected securely. You remain on the dashboard.',
+    connectWallet: 'Connect Wallet',
+    walletConnectedToast: 'Privy MPC wallet connected successfully.',
+    walletDisconnected: 'Wallet Not Connected',
+    walletDisconnectedDesc: 'Connect your Privy MPC wallet to view balances, history, and transact.',
+    
     sendTitle: 'Send Crypto Assets',
     receiveTitle: 'Receive Crypto Assets',
     swapTitle: 'Swap Tokens',
@@ -463,10 +494,16 @@ interface AppSettingsContextValue {
   formatCurrency: (usdValue: number, customDecimals?: number) => string;
   formatGain: (usdValue: number) => string;
   convertUsd: (usdValue: number) => number;
+  isWalletConnected: boolean;
+  connectWallet: () => void;
+  logoutWallet: () => void;
+  walletAddress: string;
+  walletEmail: string;
 }
 
 const STORAGE_LANG_KEY = 'hybit_language';
 const STORAGE_CURR_KEY = 'hybit_currency';
+const STORAGE_WALLET_CONNECTED_KEY = 'hybit_wallet_connected';
 
 const AppSettingsContext = createContext<AppSettingsContextValue | undefined>(undefined);
 
@@ -496,6 +533,40 @@ export const AppSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
     return 'USD';
   });
+
+  // Wallet Connection State (Connected by default, persistent via localStorage)
+  const [isWalletConnected, setIsWalletConnected] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_WALLET_CONNECTED_KEY);
+      if (saved === 'false') {
+        return false;
+      }
+    } catch {
+      // fallback
+    }
+    return true;
+  });
+
+  const connectWallet = useCallback(() => {
+    setIsWalletConnected(true);
+    try {
+      localStorage.setItem(STORAGE_WALLET_CONNECTED_KEY, 'true');
+    } catch (e) {
+      console.warn('Failed to save wallet status:', e);
+    }
+  }, []);
+
+  const logoutWallet = useCallback(() => {
+    setIsWalletConnected(false);
+    try {
+      localStorage.setItem(STORAGE_WALLET_CONNECTED_KEY, 'false');
+    } catch (e) {
+      console.warn('Failed to save wallet status:', e);
+    }
+  }, []);
+
+  const walletAddress = '0x7F2a45B083C29E41c7F3bDa208B49a37e89e8b1e';
+  const walletEmail = 'kaitosogen@gmail.com';
 
   const setLanguage = useCallback((lang: AppLanguage) => {
     setLanguageState(lang);
@@ -592,6 +663,11 @@ export const AppSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ c
         formatCurrency,
         formatGain,
         convertUsd,
+        isWalletConnected,
+        connectWallet,
+        logoutWallet,
+        walletAddress,
+        walletEmail,
       }}
     >
       {children}

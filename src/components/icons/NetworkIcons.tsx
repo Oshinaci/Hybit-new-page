@@ -97,11 +97,18 @@ export const EthereumIcon: React.FC<{ className?: string }> = ({ className = 'w-
   </svg>
 );
 
-// Base
-export const BaseIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 6C8.686 6 6 8.686 6 12C6 15.314 8.686 18 12 18C14.7 18 17 16.2 17.7 13.8H12V10.2H17.7C17 7.8 14.7 6 12 6Z" fill="#09090B" />
+// Base L2 (Official Base Symbol: Circle with horizontal bar)
+export const BaseIcon: React.FC<{ className?: string; fill?: string }> = ({
+  className = 'w-5 h-5',
+  fill = 'currentColor',
+}) => (
+  <svg viewBox="0 0 32 32" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16ZM15.9771 29C23.1698 29 29 23.1802 29 16C29 8.81984 23.1698 3 15.9771 3C9.15368 3 3.5564 8.23952 3 14.907H20.213V17.093H3C3.5564 23.7605 9.15368 29 15.9771 29Z"
+      fill={fill}
+    />
   </svg>
 );
 

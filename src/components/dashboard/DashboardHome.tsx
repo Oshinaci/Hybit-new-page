@@ -29,13 +29,17 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
   onNavigateToActivity,
 }) => {
   const { showToast } = useToast();
-  const { t, formatCurrency, formatGain, language } = useAppSettings();
+  const { t, formatCurrency, formatGain, language, isWalletConnected } = useAppSettings();
   const [balanceHidden, setBalanceHidden] = useState(false);
   const [animatedBalance, setAnimatedBalance] = useState(0);
 
-  const targetBalance = 42918.24;
+  const targetBalance = isWalletConnected ? 42918.24 : 0;
 
   useEffect(() => {
+    if (!isWalletConnected) {
+      setAnimatedBalance(0);
+      return;
+    }
     let start = 0;
     const duration = 1000;
     const stepTime = 20;
@@ -53,7 +57,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
     }, stepTime);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isWalletConnected]);
 
   const portfolioAssets: WalletAsset[] = [
     {
@@ -217,9 +221,21 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/95 font-mono">
-              <TrendingUp className="w-3.5 h-3.5 text-white" />
-              <span>{formatGain(1142.30)} (+8.4%) {t.todayGainSuffix}</span>
+            <div
+              className={`inline-flex items-center gap-1.5 text-xs font-semibold font-mono transition-colors ${
+                isWalletConnected ? 'text-white/95' : 'text-white/60'
+              }`}
+            >
+              <TrendingUp
+                className={`w-3.5 h-3.5 ${
+                  isWalletConnected ? 'text-white' : 'text-white/50'
+                }`}
+              />
+              <span>
+                {isWalletConnected ? formatGain(1142.30) : formatGain(0)}{' '}
+                ({isWalletConnected ? '+8.4%' : '0.0%'}){' '}
+                {t.todayGainSuffix}
+              </span>
             </div>
           </div>
         </div>

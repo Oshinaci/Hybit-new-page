@@ -11,6 +11,7 @@ import {
   Check,
   ChevronDown,
   Repeat,
+  Wallet,
 } from 'lucide-react';
 import { DashboardPage, NetworkOption, NotificationItem } from '../../types/dashboard';
 import { EthereumIcon, BaseIcon, SolanaIcon, ArbitrumIcon, PolygonIcon, OptimismIcon, HybitIcon } from '../icons/NetworkIcons';
@@ -32,7 +33,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   onQuickAction,
   children,
 }) => {
-  const { t, language } = useAppSettings();
+  const { t, language, isWalletConnected, connectWallet, walletAddress } = useAppSettings();
   const { showToast } = useToast();
   const [copied, setCopied] = useState(false);
   const [selectedNetwork, setSelectedNetwork] = useState('base');
@@ -61,10 +62,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const walletAddress = '0x7F2a45B083C29E41c7F3bDa208B49a37e89e8b1e';
-
   const networks: NetworkOption[] = [
-    { id: 'base', name: 'Base L2', symbol: 'ETH', iconColor: 'text-[#0095FF]', badge: language === 'id' ? 'Tercepat' : 'Fastest' },
+    { id: 'base', name: 'Base L2', symbol: 'ETH', iconColor: 'text-[#0052FF]', badge: language === 'id' ? 'Tercepat' : 'Fastest' },
     { id: 'ethereum', name: 'Ethereum', symbol: 'ETH', iconColor: 'text-indigo-400', badge: 'L1' },
     { id: 'solana', name: 'Solana', symbol: 'SOL', iconColor: 'text-emerald-400', badge: language === 'id' ? 'Cepat' : 'Fast' },
     { id: 'arbitrum', name: 'Arbitrum One', symbol: 'ETH', iconColor: 'text-blue-400', badge: 'L2' },
@@ -115,7 +114,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   const getNetworkIcon = (id: string) => {
     switch (id) {
       case 'base':
-        return <BaseIcon className="w-4 h-4 text-[#0095FF]" />;
+        return <BaseIcon className="w-4 h-4 text-[#0052FF]" />;
       case 'ethereum':
         return <EthereumIcon className="w-4 h-4 text-indigo-400" />;
       case 'solana':
@@ -138,21 +137,36 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       <header className="sticky top-0 z-40 bg-transparent px-4 sm:px-6 pt-4 pb-2">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
           
-          {/* Left: Wallet Address Card */}
-          <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-[#141419] border border-white/10 shadow-lg shadow-black/40 hover:border-white/20 transition-all">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
-            <span className="text-xs font-mono font-medium text-neutral-200">
-              0x7F2...8b1e
-            </span>
+          {/* Left: Wallet Address Card (Connected) / Connect Button (Disconnected) */}
+          {isWalletConnected ? (
+            <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-[#141419] border border-white/10 shadow-lg shadow-black/40 hover:border-white/20 transition-all">
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
+              <span className="text-xs font-mono font-medium text-neutral-200">
+                0x7F2...8b1e
+              </span>
+              <button
+                onClick={handleCopy}
+                className="text-neutral-400 hover:text-white transition-colors ml-0.5 p-1 rounded-lg hover:bg-white/[0.06] cursor-pointer"
+                title={t.copyAddress}
+                aria-label={t.copyAddress}
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+          ) : (
             <button
-              onClick={handleCopy}
-              className="text-neutral-400 hover:text-white transition-colors ml-0.5 p-1 rounded-lg hover:bg-white/[0.06] cursor-pointer"
-              title={t.copyAddress}
-              aria-label={t.copyAddress}
+              onClick={() => {
+                connectWallet();
+                showToast(t.walletConnectedToast, undefined, 'success');
+              }}
+              className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-2xl bg-[#0095FF] hover:bg-[#0080E0] text-white shadow-md shadow-[#0095FF]/20 text-xs font-semibold transition-all active:scale-[0.98] cursor-pointer select-none"
+              title={t.connectWallet}
+              aria-label={t.connectWallet}
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              <Wallet className="w-3.5 h-3.5" />
+              <span>{t.connectWallet}</span>
             </button>
-          </div>
+          )}
 
           {/* Right: Hybit ID Card + Network Selector Card + Notification Bell Card */}
           <div className="flex items-center gap-2 sm:gap-2.5">

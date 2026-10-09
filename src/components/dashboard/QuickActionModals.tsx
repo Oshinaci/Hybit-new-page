@@ -81,7 +81,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
   // Available Chains
   const chains: ChainOption[] = [
     { id: 'ethereum', name: 'Ethereum Mainnet', symbol: 'ETH', badge: language === 'id' ? 'Keamanan L1' : 'L1 Security', color: 'text-indigo-400', icon: EthereumIcon },
-    { id: 'base', name: 'Base L2', symbol: 'ETH', badge: language === 'id' ? 'Tercepat ~1.2s' : 'Fastest ~1.2s', color: 'text-[#0095FF]', icon: BaseIcon },
+    { id: 'base', name: 'Base L2', symbol: 'ETH', badge: language === 'id' ? 'Tercepat ~1.2s' : 'Fastest ~1.2s', color: 'text-[#0052FF]', icon: BaseIcon },
     { id: 'arbitrum', name: 'Arbitrum One', symbol: 'ETH', badge: language === 'id' ? 'Gas Rendah L2' : 'Low Gas L2', color: 'text-blue-400', icon: ArbitrumIcon },
     { id: 'solana', name: 'Solana Network', symbol: 'SOL', badge: language === 'id' ? 'Sub-detik' : 'Sub-second', color: 'text-emerald-400', icon: SolanaIcon },
     { id: 'polygon', name: 'Polygon PoS', symbol: 'POL', badge: 'Sidechain', color: 'text-purple-400', icon: PolygonIcon },

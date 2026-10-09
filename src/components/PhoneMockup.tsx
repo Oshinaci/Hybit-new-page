@@ -365,7 +365,7 @@ export const PhoneMockup: React.FC = () => {
                   {/* Network Indicator & Notification Bell */}
                   <div className="flex items-center gap-1.5">
                     <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-2xl bg-[#141419]/90 border border-white/10 shadow-md shadow-black/40">
-                      <BaseIcon className="w-3.5 h-3.5 text-[#0095FF]" />
+                      <BaseIcon className="w-3.5 h-3.5 text-[#0052FF]" />
                       <span className="text-[11px] font-medium text-neutral-200">Base</span>
                     </div>
 

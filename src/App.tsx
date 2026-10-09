@@ -110,7 +110,9 @@ export default function App() {
 
               {dashboardPage === 'activity' && <ActivityView />}
 
-              {(dashboardPage === 'wallet' || dashboardPage === 'settings') && <SettingsView />}
+              {(dashboardPage === 'wallet' || dashboardPage === 'settings') && (
+                <SettingsView onNavigateToDashboard={() => setDashboardPage('dashboard')} />
+              )}
             </React.Fragment>
           </DashboardLayout>
 
