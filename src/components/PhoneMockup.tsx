@@ -80,7 +80,7 @@ export const PhoneMockup: React.FC = () => {
       change: '+4.25%',
       isPos: true,
       val: '$24,353.96',
-      icon: <EthereumIcon className="w-8 h-8 text-indigo-400" />,
+      icon: <EthereumIcon className="w-8 h-8" />,
     },
     {
       id: 'sol',
@@ -365,7 +365,7 @@ export const PhoneMockup: React.FC = () => {
                   {/* Network Indicator & Notification Bell */}
                   <div className="flex items-center gap-1.5">
                     <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-2xl bg-[#141419]/90 border border-white/10 shadow-md shadow-black/40">
-                      <BaseIcon className="w-3.5 h-3.5 text-[#0052FF]" />
+                      <BaseIcon className="w-3.5 h-3.5" />
                       <span className="text-[11px] font-medium text-neutral-200">Base</span>
                     </div>
 

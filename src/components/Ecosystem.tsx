@@ -113,9 +113,9 @@ export const Ecosystem: React.FC = () => {
   const getNetworkIcon = (id: string, className = 'w-9 h-9 sm:w-10 sm:h-10') => {
     switch (id) {
       case 'ethereum':
-        return <EthereumIcon className={`${className} text-indigo-400`} />;
+        return <EthereumIcon className={className} />;
       case 'base':
-        return <BaseIcon className={`${className} text-[#0052FF]`} />;
+        return <BaseIcon className={className} />;
       case 'arbitrum':
         return <ArbitrumIcon className={className} />;
       case 'optimism':
@@ -123,15 +123,15 @@ export const Ecosystem: React.FC = () => {
       case 'polygon':
         return <PolygonIcon className={className} />;
       case 'bnb':
-        return <BNBIcon className={`${className} text-amber-400`} />;
+        return <BNBIcon className={className} />;
       case 'solana':
         return <SolanaIcon className={className} />;
       case 'sui':
-        return <SuiIcon className={`${className} text-sky-400`} />;
+        return <SuiIcon className={className} />;
       case 'aptos':
-        return <AptosIcon className={`${className} text-teal-400`} />;
+        return <AptosIcon className={className} />;
       default:
-        return <Globe2 className={`${className} text-white`} />;
+        return <Globe2 className={`${className} text-[#0095FF]`} />;
     }
   };
 

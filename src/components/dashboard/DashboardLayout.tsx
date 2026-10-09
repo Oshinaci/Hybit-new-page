@@ -114,9 +114,9 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   const getNetworkIcon = (id: string, className = 'w-5 h-5') => {
     switch (id) {
       case 'base':
-        return <BaseIcon className={`${className} text-[#0052FF]`} />;
+        return <BaseIcon className={className} />;
       case 'ethereum':
-        return <EthereumIcon className={`${className} text-indigo-400`} />;
+        return <EthereumIcon className={className} />;
       case 'solana':
         return <SolanaIcon className={className} />;
       case 'arbitrum':
@@ -126,7 +126,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       case 'optimism':
         return <OptimismIcon className={className} />;
       default:
-        return <BaseIcon className={`${className} text-white`} />;
+        return <BaseIcon className={className} />;
     }
   };
 

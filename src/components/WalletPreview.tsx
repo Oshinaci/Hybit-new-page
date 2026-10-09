@@ -111,7 +111,7 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
   const calculatedOutput = ((parseFloat(swapFromAmount || '0') * fromPrice) / toPrice).toFixed(2);
 
   const previewTokenOptions = [
-    { symbol: 'ETH', name: 'Ethereum', icon: <EthereumIcon className="w-5 h-5 text-indigo-400" /> },
+    { symbol: 'ETH', name: 'Ethereum', icon: <EthereumIcon className="w-5 h-5" /> },
     { symbol: 'USDC', name: 'USD Coin', icon: <CircleIcon className="w-5 h-5" /> },
     { symbol: 'SOL', name: 'Solana', icon: <SolanaIcon className="w-5 h-5" /> },
     { symbol: 'ARB', name: 'Arbitrum', icon: <ArbitrumIcon className="w-5 h-5" /> },
@@ -248,7 +248,7 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
                   return (
                     <div key={item.symbol} className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
                       <div className="flex items-center gap-2 mb-1.5">
-                        <Icon className="w-5 h-5 text-neutral-300" />
+                        <Icon className="w-5 h-5" />
                         <span className="text-xs font-semibold text-white">{item.symbol}</span>
                         <span className="text-[10px] text-neutral-500 ml-auto font-mono">{item.pct}</span>
                       </div>
@@ -297,9 +297,9 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
                         }}
                         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.08] hover:bg-white/[0.14] text-xs font-semibold text-white transition-all cursor-pointer border border-white/10"
                       >
-                        {swapTokenFrom === 'ETH' && <EthereumIcon className="w-4 h-4 text-indigo-400" />}
-                        {swapTokenFrom === 'USDC' && <CircleIcon className="w-4 h-4 text-sky-400" />}
-                        {swapTokenFrom === 'SOL' && <SolanaIcon className="w-4 h-4 text-emerald-400" />}
+                        {swapTokenFrom === 'ETH' && <EthereumIcon className="w-4 h-4" />}
+                        {swapTokenFrom === 'USDC' && <CircleIcon className="w-4 h-4" />}
+                        {swapTokenFrom === 'SOL' && <SolanaIcon className="w-4 h-4" />}
                         {swapTokenFrom === 'ARB' && <ArbitrumIcon className="w-4 h-4" />}
                         <span>{swapTokenFrom}</span>
                         <ChevronDown className={`w-3 h-3 text-neutral-400 transition-transform ${payDropdownOpen ? 'rotate-180 text-white' : ''}`} />
@@ -379,9 +379,9 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
                         }}
                         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.08] hover:bg-white/[0.14] text-xs font-semibold text-white transition-all cursor-pointer border border-white/10"
                       >
-                        {swapTokenTo === 'ETH' && <EthereumIcon className="w-4 h-4 text-indigo-400" />}
-                        {swapTokenTo === 'USDC' && <CircleIcon className="w-4 h-4 text-sky-400" />}
-                        {swapTokenTo === 'SOL' && <SolanaIcon className="w-4 h-4 text-emerald-400" />}
+                        {swapTokenTo === 'ETH' && <EthereumIcon className="w-4 h-4" />}
+                        {swapTokenTo === 'USDC' && <CircleIcon className="w-4 h-4" />}
+                        {swapTokenTo === 'SOL' && <SolanaIcon className="w-4 h-4" />}
                         {swapTokenTo === 'ARB' && <ArbitrumIcon className="w-4 h-4" />}
                         <span>{swapTokenTo}</span>
                         <ChevronDown className={`w-3 h-3 text-neutral-400 transition-transform ${receiveDropdownOpen ? 'rotate-180 text-white' : ''}`} />

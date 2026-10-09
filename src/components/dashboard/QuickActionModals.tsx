@@ -85,7 +85,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
     { id: 'arbitrum', name: 'Arbitrum One', symbol: 'ETH', badge: language === 'id' ? 'Gas Rendah L2' : 'Low Gas L2', color: 'text-blue-400', icon: ArbitrumIcon },
     { id: 'solana', name: 'Solana Network', symbol: 'SOL', badge: language === 'id' ? 'Sub-detik' : 'Sub-second', color: 'text-emerald-400', icon: SolanaIcon },
     { id: 'polygon', name: 'Polygon PoS', symbol: 'POL', badge: 'Sidechain', color: 'text-purple-400', icon: PolygonIcon },
-    { id: 'optimism', name: 'Optimism Mainnet', symbol: 'ETH', badge: 'OP Stack', color: 'text-rose-400', icon: OptimismIcon },
+    { id: 'optimism', name: 'Optimism Mainnet', symbol: 'ETH', badge: 'OP Stack', color: 'text-red-500', icon: OptimismIcon },
   ];
 
   // Send state
@@ -1165,7 +1165,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                             className="w-full px-3 py-2 rounded-xl bg-[#141419] border border-white/10 hover:border-white/20 text-white text-xs flex items-center justify-between transition-all cursor-pointer"
                           >
                             <div className="flex items-center gap-2 truncate">
-                              <bridgeSourceChain.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
+                              <bridgeSourceChain.icon className="w-5 h-5 shrink-0" />
                               <span className="font-semibold truncate">{bridgeSourceChain.name}</span>
                             </div>
                             <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 shrink-0 transition-transform ${bridgeSourceDropdownOpen ? 'rotate-180 text-[#0095FF]' : ''}`} />
@@ -1357,7 +1357,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                           className="w-full px-3 py-2 rounded-xl bg-[#141419] border border-white/10 hover:border-white/20 text-white text-xs flex items-center justify-between transition-all cursor-pointer"
                         >
                           <div className="flex items-center gap-2 truncate">
-                            <bridgeDestChain.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
+                            <bridgeDestChain.icon className="w-5 h-5 shrink-0" />
                             <span className="font-semibold truncate">{bridgeDestChain.name}</span>
                           </div>
                           <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 shrink-0 transition-transform ${bridgeDestDropdownOpen ? 'rotate-180 text-[#0095FF]' : ''}`} />

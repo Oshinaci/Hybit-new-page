@@ -71,7 +71,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
       change24h: 4.25,
       sparkline: [3200, 3250, 3310, 3280, 3390, 3420],
       color: '#6366F1',
-      iconBg: 'bg-indigo-600/20 text-indigo-400',
+      iconBg: 'bg-white/[0.05] text-neutral-300',
     },
     {
       id: 'sol',
@@ -84,7 +84,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
       change24h: 7.82,
       sparkline: [168, 172, 175, 179, 181, 184],
       color: '#10B981',
-      iconBg: 'bg-emerald-600/20 text-emerald-400',
+      iconBg: 'bg-white/[0.05] text-neutral-300',
     },
     {
       id: 'usdc',
@@ -97,7 +97,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
       change24h: 0.01,
       sparkline: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       color: '#0EA5E9',
-      iconBg: 'bg-sky-600/20 text-sky-400',
+      iconBg: 'bg-white/[0.05] text-neutral-300',
     },
     {
       id: 'arb',
@@ -110,7 +110,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
       change24h: -1.45,
       sparkline: [1.18, 1.16, 1.14, 1.15, 1.11, 1.12],
       color: '#3B82F6',
-      iconBg: 'bg-blue-600/20 text-blue-400',
+      iconBg: 'bg-white/[0.05] text-neutral-300',
     },
   ];
 
@@ -159,10 +159,10 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
     },
   ];
 
-  const renderAssetIcon = (id: string, className = 'w-10 h-10 sm:w-11 sm:h-11') => {
+  const renderAssetIcon = (id: string, className = 'w-7 h-7 sm:w-8 sm:h-8') => {
     switch (id) {
       case 'eth':
-        return <EthereumIcon className={`${className} text-indigo-400`} />;
+        return <EthereumIcon className={className} />;
       case 'sol':
         return <SolanaIcon className={className} />;
       case 'usdc':
@@ -170,7 +170,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
       case 'arb':
         return <ArbitrumIcon className={className} />;
       default:
-        return <BaseIcon className={`${className} text-neutral-300`} />;
+        return <BaseIcon className={className} />;
     }
   };
 
@@ -299,8 +299,8 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
                 className="flex items-center justify-between py-4 px-1 hover:bg-white/[0.02] border-b border-white/[0.06] last:border-b-0 transition-colors cursor-pointer group"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 shrink-0 flex items-center justify-center">
-                    {renderAssetIcon(asset.id, 'w-10 h-10 sm:w-11 sm:h-11')}
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 shrink-0 flex items-center justify-center">
+                    {renderAssetIcon(asset.id, 'w-7 h-7 sm:w-8 sm:h-8')}
                   </div>
                   <div>
                     <div className="text-base font-bold text-white group-hover:text-[#0095FF] transition-colors flex items-center gap-2">

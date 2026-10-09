@@ -51,7 +51,7 @@ export const TrustedBy: React.FC = () => {
                 key={partner.name}
                 className="group relative flex items-center gap-3 p-3 sm:p-3.5 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/[0.05] hover:border-white/[0.12] transition-all duration-200 cursor-default"
               >
-                <div className="text-neutral-400 group-hover:text-white transition-colors shrink-0 flex items-center justify-center">
+                <div className="shrink-0 flex items-center justify-center">
                   <Icon className="w-8 h-8 sm:w-9 sm:h-9" />
                 </div>
                 <div className="min-w-0">
