@@ -148,7 +148,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onQuickAction }) =
       case 'usdc':
         return <CircleIcon className="w-5 h-5 text-sky-400" />;
       case 'arb':
-        return <ArbitrumIcon className="w-5 h-5 text-blue-400" />;
+        return <ArbitrumIcon className="w-5 h-5" />;
       default:
         return <BaseIcon className="w-5 h-5 text-neutral-300" />;
     }

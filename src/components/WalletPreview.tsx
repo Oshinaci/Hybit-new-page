@@ -12,7 +12,7 @@ import {
   Layers,
   ExternalLink,
 } from 'lucide-react';
-import { EthereumIcon, SolanaIcon, BaseIcon, CircleIcon } from './icons/NetworkIcons';
+import { EthereumIcon, SolanaIcon, BaseIcon, CircleIcon, ArbitrumIcon } from './icons/NetworkIcons';
 import { useToast } from '../context/ToastContext';
 
 export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunchApp }) => {
@@ -114,7 +114,7 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
     { symbol: 'ETH', name: 'Ethereum', icon: <EthereumIcon className="w-4 h-4 text-indigo-400" /> },
     { symbol: 'USDC', name: 'USD Coin', icon: <CircleIcon className="w-4 h-4 text-sky-400" /> },
     { symbol: 'SOL', name: 'Solana', icon: <SolanaIcon className="w-4 h-4 text-emerald-400" /> },
-    { symbol: 'ARB', name: 'Arbitrum', icon: <EthereumIcon className="w-4 h-4 text-blue-400" /> },
+    { symbol: 'ARB', name: 'Arbitrum', icon: <ArbitrumIcon className="w-4 h-4" /> },
   ];
 
   return (
@@ -300,7 +300,7 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
                         {swapTokenFrom === 'ETH' && <EthereumIcon className="w-4 h-4 text-indigo-400" />}
                         {swapTokenFrom === 'USDC' && <CircleIcon className="w-4 h-4 text-sky-400" />}
                         {swapTokenFrom === 'SOL' && <SolanaIcon className="w-4 h-4 text-emerald-400" />}
-                        {swapTokenFrom === 'ARB' && <EthereumIcon className="w-4 h-4 text-blue-400" />}
+                        {swapTokenFrom === 'ARB' && <ArbitrumIcon className="w-4 h-4" />}
                         <span>{swapTokenFrom}</span>
                         <ChevronDown className={`w-3 h-3 text-neutral-400 transition-transform ${payDropdownOpen ? 'rotate-180 text-white' : ''}`} />
                       </button>
@@ -382,7 +382,7 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
                         {swapTokenTo === 'ETH' && <EthereumIcon className="w-4 h-4 text-indigo-400" />}
                         {swapTokenTo === 'USDC' && <CircleIcon className="w-4 h-4 text-sky-400" />}
                         {swapTokenTo === 'SOL' && <SolanaIcon className="w-4 h-4 text-emerald-400" />}
-                        {swapTokenTo === 'ARB' && <EthereumIcon className="w-4 h-4 text-blue-400" />}
+                        {swapTokenTo === 'ARB' && <ArbitrumIcon className="w-4 h-4" />}
                         <span>{swapTokenTo}</span>
                         <ChevronDown className={`w-3 h-3 text-neutral-400 transition-transform ${receiveDropdownOpen ? 'rotate-180 text-white' : ''}`} />
                       </button>

@@ -120,11 +120,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       case 'solana':
         return <SolanaIcon className="w-4 h-4 text-emerald-400" />;
       case 'arbitrum':
-        return <ArbitrumIcon className="w-4 h-4 text-blue-400" />;
+        return <ArbitrumIcon className="w-4 h-4" />;
       case 'polygon':
-        return <PolygonIcon className="w-4 h-4 text-purple-400" />;
+        return <PolygonIcon className="w-4 h-4" />;
       case 'optimism':
-        return <OptimismIcon className="w-4 h-4 text-red-500" />;
+        return <OptimismIcon className="w-4 h-4" />;
       default:
         return <BaseIcon className="w-4 h-4 text-white" />;
     }

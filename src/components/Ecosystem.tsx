@@ -117,11 +117,11 @@ export const Ecosystem: React.FC = () => {
       case 'base':
         return <BaseIcon className="w-6 h-6 text-[#0052FF]" />;
       case 'arbitrum':
-        return <ArbitrumIcon className="w-6 h-6 text-blue-400" />;
+        return <ArbitrumIcon className="w-6 h-6" />;
       case 'optimism':
-        return <OptimismIcon className="w-6 h-6 text-red-500" />;
+        return <OptimismIcon className="w-6 h-6" />;
       case 'polygon':
-        return <PolygonIcon className="w-6 h-6 text-purple-400" />;
+        return <PolygonIcon className="w-6 h-6" />;
       case 'bnb':
         return <BNBIcon className="w-6 h-6 text-amber-400" />;
       case 'solana':

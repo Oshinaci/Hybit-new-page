@@ -113,7 +113,7 @@ export const PhoneMockup: React.FC = () => {
       change: '-1.45%',
       isPos: false,
       val: '$2,000.00',
-      icon: <ArbitrumIcon className="w-5 h-5 text-blue-400" />,
+      icon: <ArbitrumIcon className="w-5 h-5" />,
     },
   ];
 
