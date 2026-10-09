@@ -9,7 +9,11 @@ export default defineConfig(() => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
+        'cross-fetch': path.resolve(__dirname, 'src/utils/cross-fetch-ponyfill.ts'),
       },
+    },
+    optimizeDeps: {
+      exclude: ['cross-fetch'],
     },
     server: {
       host: '0.0.0.0',

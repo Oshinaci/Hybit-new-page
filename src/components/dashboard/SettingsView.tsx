@@ -20,6 +20,7 @@ import {
   LANGUAGE_OPTIONS,
   AppLanguage,
 } from '../../context/AppSettingsContext';
+import { useTurnkeyAuth } from '../../context/TurnkeyAuthContext';
 
 interface SettingsViewProps {
   onNavigateToDashboard?: () => void;
@@ -36,11 +37,21 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onNavigateToDashboar
     currentCurrency,
     t,
     formatCurrency,
-    isWalletConnected,
-    logoutWallet,
-    walletAddress,
-    walletEmail,
+    isWalletConnected: appWalletConnected,
+    logoutWallet: appLogoutWallet,
+    walletAddress: defaultWalletAddress,
+    walletEmail: defaultWalletEmail,
   } = useAppSettings();
+
+  const {
+    isAuthenticated: turnkeyAuthenticated,
+    walletAddress: turnkeyWalletAddress,
+    userEmail: turnkeyUserEmail,
+    hasWallet: turnkeyHasWallet,
+    logout: turnkeyLogout,
+    isConfigured: turnkeyIsConfigured,
+    openConfigInfo,
+  } = useTurnkeyAuth();
 
   const [passkeyEnabled, setPasskeyEnabled] = useState(true);
   const [autoLockTime, setAutoLockTime] = useState('5m');
@@ -49,14 +60,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onNavigateToDashboar
   const [languageOpen, setLanguageOpen] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  // 1 Wallet Only - Privy Embedded Wallet tied 1 Email : 1 Wallet
+  const isWalletConnected = turnkeyAuthenticated ? turnkeyHasWallet : appWalletConnected;
+  const activeAddress = (turnkeyAuthenticated && turnkeyWalletAddress) ? turnkeyWalletAddress : defaultWalletAddress;
+  const activeEmail = (turnkeyAuthenticated && turnkeyUserEmail) ? turnkeyUserEmail : defaultWalletEmail;
+
+  // 1 Wallet Only - Embedded Wallet tied 1 Email : 1 Wallet
   const walletData = {
-    name: 'Privy Embedded Wallet',
-    email: walletEmail,
-    authProvider: 'Privy Web3 Auth',
-    type: 'Non-Custodial MPC · 1 Email : 1 Wallet',
-    address: walletAddress,
-    rawBalanceUsd: isWalletConnected ? 42918.24 : 0,
+    name: 'Embedded Wallet',
+    email: activeEmail,
+    authProvider: turnkeyAuthenticated ? 'Turnkey Embedded' : (turnkeyIsConfigured ? 'Turnkey (Ready)' : 'Turnkey Embedded'),
+    type: 'Self-Custody · 1 Email : 1 Wallet',
+    address: activeAddress,
+    // Live wallet balance has not been connected to a live balance indexer yet; mock shows demo valuation only when in demo mode
+    rawBalanceUsd: turnkeyAuthenticated ? 0 : (isWalletConnected ? 42918.24 : 0),
     status: isWalletConnected ? t.walletVerified : (language === 'id' ? 'Sesi Terputus' : 'Disconnected'),
   };
 
@@ -70,9 +86,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onNavigateToDashboar
 
   const currentAutoLockObj = autoLockOptions.find((o) => o.id === autoLockTime) || autoLockOptions[1];
 
-  const handleLogout = () => {
-    logoutWallet();
-    showToast(t.logoutSuccessTitle, t.logoutSuccessMessage, 'info');
+  const handleLogout = async () => {
+    if (turnkeyAuthenticated) {
+      await turnkeyLogout();
+    } else {
+      appLogoutWallet();
+      showToast(t.logoutSuccessTitle, t.logoutSuccessMessage, 'info');
+    }
     if (onNavigateToDashboard) {
       onNavigateToDashboard();
     }
@@ -101,14 +121,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onNavigateToDashboar
         </p>
       </div>
 
-      {/* 1. Privy Embedded Wallet (1 Wallet Saja Tanpa Vault - Unboxed) */}
+      {/* 1. Embedded Wallet (1 Wallet Saja Tanpa Vault - Unboxed) */}
       <section className="space-y-4 pb-6 border-b border-white/[0.08]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-base font-bold text-white tracking-tight">{t.walletCardTitle}</h3>
               <span className="text-xs font-mono text-neutral-400">
-                · Privy Auth
+                · Embedded Auth
               </span>
             </div>
             <p className="text-xs text-neutral-400 mt-0.5">
@@ -120,7 +140,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onNavigateToDashboar
           {isWalletConnected ? (
             <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span>{language === 'id' ? 'Privy Terhubung' : 'Privy Connected'}</span>
+              <span>{language === 'id' ? 'Sesi Terhubung' : 'Session Connected'}</span>
             </div>
           ) : (
             <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-mono">
@@ -571,7 +591,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onNavigateToDashboar
         <div className="flex items-center gap-2 text-neutral-400">
           <span className="font-mono text-xs text-neutral-300 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            Privy MPC Protocol
+            Self-Custody Protocol
           </span>
         </div>
       </section>

@@ -347,15 +347,18 @@ export const PhoneMockup: React.FC = () => {
                 {/* 7. APP TOP BAR: WALLET ADDRESS & NETWORK BADGE       */}
                 {/* ===================================================== */}
                 <div className="px-3.5 pt-1.5 pb-2 flex items-center justify-between shrink-0 z-20">
-                  {/* Wallet Address Interactive Card */}
+                  {/* Hybit ID & Address Interactive Card */}
                   <button
                     onClick={handleCopy}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-[#141419]/90 border border-white/10 shadow-md shadow-black/40 hover:bg-[#1A1A22] active:scale-95 transition-all cursor-pointer"
-                    title="Click to copy wallet address"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-[#141419]/90 border border-white/10 shadow-md shadow-black/40 hover:bg-[#1A1A22] active:scale-95 transition-all cursor-pointer"
+                    title="Click to copy Hybit ID and address"
                   >
                     <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
-                    <span className="text-xs font-mono font-medium text-neutral-200">
-                      {copied ? 'Copied!' : walletAddress}
+                    <span className="text-xs font-semibold text-white">
+                      @galang
+                    </span>
+                    <span className="text-[10px] font-mono text-neutral-400">
+                      {copied ? 'Copied!' : '· 0x7F2...8b1e'}
                     </span>
                     <div className="text-neutral-400 p-0.5 ml-0.5">
                       <Copy className="w-3 h-3" />

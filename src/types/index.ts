@@ -26,9 +26,8 @@ export interface SupportedNetwork {
   id: string;
   name: string;
   type: 'EVM' | 'L2' | 'Non-EVM';
-  tps: string;
-  avgFee: string;
-  finality: string;
+  architecture: string;
+  tokenStandard: string;
   token: string;
   description: string;
 }

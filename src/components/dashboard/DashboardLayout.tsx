@@ -17,6 +17,7 @@ import { DashboardPage, NetworkOption, NotificationItem } from '../../types/dash
 import { EthereumIcon, BaseIcon, SolanaIcon, ArbitrumIcon, PolygonIcon, OptimismIcon, HybitIcon } from '../icons/NetworkIcons';
 import { useAppSettings } from '../../context/AppSettingsContext';
 import { useToast } from '../../context/ToastContext';
+import { useTurnkeyAuth } from '../../context/TurnkeyAuthContext';
 
 interface DashboardLayoutProps {
   currentPage: DashboardPage;
@@ -33,8 +34,26 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   onQuickAction,
   children,
 }) => {
-  const { t, language, isWalletConnected, connectWallet, walletAddress } = useAppSettings();
+  const { t, language, isWalletConnected: appWalletConnected, connectWallet: appConnectWallet, walletAddress: defaultWalletAddress } = useAppSettings();
+  const {
+    isAuthenticated: turnkeyAuthenticated,
+    walletAddress: turnkeyWalletAddress,
+    hasWallet: turnkeyHasWallet,
+    login: turnkeyLogin,
+    isAuthenticating: turnkeyIsAuthenticating,
+    isConfigured: turnkeyIsConfigured,
+    openConfigInfo,
+  } = useTurnkeyAuth();
   const { showToast } = useToast();
+
+  // Active wallet connection: true if Turnkey is authenticated with wallet OR simulated wallet is active
+  const isWalletConnected = turnkeyAuthenticated ? turnkeyHasWallet : appWalletConnected;
+  const activeAddress = (turnkeyAuthenticated && turnkeyWalletAddress) ? turnkeyWalletAddress : defaultWalletAddress;
+
+  const displayShortAddress = activeAddress.length > 10
+    ? `${activeAddress.slice(0, 5)}...${activeAddress.slice(-4)}`
+    : '0x7F2...8b1e';
+
   const [copied, setCopied] = useState(false);
   const [selectedNetwork, setSelectedNetwork] = useState('base');
   const [networkDropdownOpen, setNetworkDropdownOpen] = useState(false);
@@ -105,7 +124,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   const handleCopy = () => {
-    navigator.clipboard?.writeText(walletAddress);
+    navigator.clipboard?.writeText(activeAddress);
     setCopied(true);
     showToast(t.copyAddress, t.addressCopied, 'copy');
     setTimeout(() => setCopied(false), 2000);
@@ -142,7 +161,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-[#141419] border border-white/10 shadow-lg shadow-black/40 hover:border-white/20 transition-all">
               <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
               <span className="text-xs font-mono font-medium text-neutral-200">
-                0x7F2...8b1e
+                {displayShortAddress}
               </span>
               <button
                 onClick={handleCopy}
@@ -156,15 +175,15 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           ) : (
             <button
               onClick={() => {
-                connectWallet();
-                showToast(t.walletConnectedToast, undefined, 'success');
+                turnkeyLogin();
               }}
-              className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-2xl bg-[#0095FF] hover:bg-[#0080E0] text-white shadow-md shadow-[#0095FF]/20 text-xs font-semibold transition-all active:scale-[0.98] cursor-pointer select-none"
+              disabled={turnkeyIsAuthenticating}
+              className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-2xl bg-[#0095FF] hover:bg-[#0080E0] text-white shadow-md shadow-[#0095FF]/20 text-xs font-semibold transition-all active:scale-[0.98] cursor-pointer select-none disabled:opacity-70 disabled:cursor-not-allowed"
               title={t.connectWallet}
               aria-label={t.connectWallet}
             >
               <Wallet className="w-3.5 h-3.5" />
-              <span>{t.connectWallet}</span>
+              <span>{turnkeyIsAuthenticating ? 'Connecting...' : t.connectWallet}</span>
             </button>
           )}
 
@@ -439,7 +458,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                 />
               </button>
 
-              {/* Item 5: Settings (Privy Embedded Wallet & Preferences) */}
+              {/* Item 5: Settings (Embedded Wallet & Preferences) */}
               <button
                 onClick={() => onPageChange('settings')}
                 aria-label={t.navSettings}

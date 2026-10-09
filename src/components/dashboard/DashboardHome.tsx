@@ -16,6 +16,7 @@ import { WalletAsset, WalletTransaction } from '../../types/dashboard';
 import { EthereumIcon, SolanaIcon, BaseIcon, CircleIcon, ArbitrumIcon, HybitMark } from '../icons/NetworkIcons';
 import { useToast } from '../../context/ToastContext';
 import { useAppSettings } from '../../context/AppSettingsContext';
+import { useTurnkeyAuth } from '../../context/TurnkeyAuthContext';
 
 interface DashboardHomeProps {
   onQuickAction: (action: 'send' | 'receive' | 'swap' | 'buy' | 'bridge') => void;
@@ -29,11 +30,14 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
   onNavigateToActivity,
 }) => {
   const { showToast } = useToast();
-  const { t, formatCurrency, formatGain, language, isWalletConnected } = useAppSettings();
+  const { t, formatCurrency, formatGain, language, isWalletConnected: appWalletConnected } = useAppSettings();
+  const { isAuthenticated, hasWallet } = useTurnkeyAuth();
+  const isWalletConnected = isAuthenticated ? hasWallet : appWalletConnected;
   const [balanceHidden, setBalanceHidden] = useState(false);
   const [animatedBalance, setAnimatedBalance] = useState(0);
 
-  const targetBalance = isWalletConnected ? 42918.24 : 0;
+  // Authenticated real Turnkey embedded wallet starts with 0.00 until live indexer is attached. Demo mode shows demo balance.
+  const targetBalance = isAuthenticated ? 0 : (isWalletConnected ? 42918.24 : 0);
 
   useEffect(() => {
     if (!isWalletConnected) {
@@ -121,7 +125,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
       status: 'confirmed',
       chain: 'Base',
       from: 'sarah.eth',
-      to: language === 'id' ? 'Anda (Dompet Privy)' : 'You (Privy Wallet)',
+      to: language === 'id' ? 'Anda (Embedded Wallet)' : 'You (Embedded Wallet)',
       amount: '+250.00 USDC',
       tokenSymbol: 'USDC',
       valueUsd: 250.0,
@@ -148,7 +152,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
       type: 'sent',
       status: 'confirmed',
       chain: 'Base',
-      from: language === 'id' ? 'Anda (Dompet Privy)' : 'You (Privy Wallet)',
+      from: language === 'id' ? 'Anda (Embedded Wallet)' : 'You (Embedded Wallet)',
       to: 'Blue Bottle Coffee · Hybit Pay',
       amount: '-$6.50 USDC',
       tokenSymbol: 'USDC',

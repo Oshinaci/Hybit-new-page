@@ -30,17 +30,17 @@ export const CTA: React.FC<CTAProps> = ({ onLaunchApp, onDownload }) => {
             
             {/* Clean Unboxed Kicker */}
             <div className="flex items-center justify-center gap-2 text-xs font-medium text-neutral-400 mb-6 tracking-wide">
-              <span className="text-neutral-200">Early Access v1.0.0</span>
+              <span className="text-neutral-200">Self-Custodial</span>
               <span className="text-neutral-600">·</span>
-              <span>Non-Custodial</span>
+              <span>Web Interface</span>
             </div>
 
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight text-balance">
-              Start Your Crypto Journey Today.
+              A simpler way to use crypto.
             </h2>
 
             <p className="mt-6 text-base sm:text-xl text-neutral-300 leading-relaxed max-w-xl mx-auto text-balance">
-              Experience the everyday wallet built for everyone. No complicated seeds, no confusing bridges. Just instant, safe crypto.
+              Your wallet, your assets, your next move. All in Hybit.
             </p>
 
             {/* Action Buttons */}
@@ -49,7 +49,7 @@ export const CTA: React.FC<CTAProps> = ({ onLaunchApp, onDownload }) => {
                 onClick={onLaunchApp}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[#0095FF] hover:bg-[#0080E0] text-white text-base font-semibold shadow-lg shadow-black/30 active:scale-[0.98] transition-all cursor-pointer group"
               >
-                <span>Launch App</span>
+                <span>Open Hybit</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -58,9 +58,9 @@ export const CTA: React.FC<CTAProps> = ({ onLaunchApp, onDownload }) => {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white/[0.07] hover:bg-white/[0.12] border border-white/10 text-white text-base font-medium active:scale-[0.98] transition-all cursor-pointer"
               >
                 <Download className="w-4 h-4 text-neutral-400" />
-                <span>Download App</span>
+                <span>Download</span>
                 <span className="text-xs font-mono text-neutral-400 ml-1">
-                  · Coming Soon
+                  · Coming soon
                 </span>
               </button>
             </div>
@@ -72,9 +72,9 @@ export const CTA: React.FC<CTAProps> = ({ onLaunchApp, onDownload }) => {
                 100% Non-Custodial
               </span>
               <span className="text-neutral-600">·</span>
-              <span>Available on iOS, Android & Web</span>
+              <span>Web App Available Now</span>
               <span className="text-neutral-600">·</span>
-              <span>Set Up in 5 Seconds</span>
+              <span>Zero Account Clutter</span>
             </div>
 
           </div>

@@ -40,9 +40,10 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
   const navLinks = [
     { label: 'Features', href: '#features' },
-    { label: 'Wallet Preview', href: '#preview' },
+    { label: 'Hybit ID', href: '#hybit-id' },
+    { label: 'Embedded Wallet', href: '#embedded-wallet' },
+    { label: 'Portfolio', href: '#preview' },
     { label: 'Security', href: '#security' },
-    { label: 'Ecosystem', href: '#ecosystem' },
     { label: 'FAQ', href: '#faq' },
   ];
 
@@ -113,10 +114,10 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 >
                   <span className="flex items-center gap-2.5">
                     <Download className="w-4 h-4 text-[#0095FF]" />
-                    Download App
+                    Download
                   </span>
                   <span className="text-[10px] font-mono text-neutral-400">
-                    · Coming Soon
+                    · Coming soon
                   </span>
                 </button>
               </div>
@@ -131,15 +132,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 }}
                 className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0095FF] hover:bg-[#0080E0] text-white font-medium text-sm shadow-sm active:scale-[0.98] transition-all cursor-pointer"
               >
-                Launch App
+                Open Hybit
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <div className="flex items-center justify-between text-xs text-neutral-500 pt-2 px-1">
                 <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-                  Mainnet Ready
+                  Self-Custodial
                 </span>
-                <span className="font-mono text-neutral-400">Early Access v1.0.0</span>
+                <span className="font-mono text-neutral-400">Web App Available</span>
               </div>
             </div>
           </motion.div>

@@ -28,6 +28,7 @@ import {
 } from '../icons/NetworkIcons';
 import { useToast } from '../../context/ToastContext';
 import { useAppSettings } from '../../context/AppSettingsContext';
+import { useTurnkeyAuth } from '../../context/TurnkeyAuthContext';
 
 interface QuickActionModalProps {
   type: 'send' | 'receive' | 'swap' | 'buy' | 'bridge' | null;
@@ -60,7 +61,9 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
   onSuccessTransaction,
 }) => {
   const { showToast } = useToast();
-  const { formatCurrency, language, t } = useAppSettings();
+  const { formatCurrency, language, t, walletAddress: defaultWalletAddress } = useAppSettings();
+  const { isAuthenticated, walletAddress: turnkeyWalletAddress } = useTurnkeyAuth();
+  const walletAddress = (isAuthenticated && turnkeyWalletAddress) ? turnkeyWalletAddress : defaultWalletAddress;
   const [copied, setCopied] = useState(false);
   const [step, setStep] = useState<'form' | 'success' | 'failed'>('form');
   const defaultFailReason = language === 'id'
@@ -122,8 +125,6 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
   const [bridgeSourceSearch, setBridgeSourceSearch] = useState('');
   const [bridgeDestSearch, setBridgeDestSearch] = useState('');
   const [bridgeTokenSearch, setBridgeTokenSearch] = useState('');
-
-  const walletAddress = '0x7F2a45B083C29E41c7F3bDa208B49a37e89e8b1e';
 
   // Automatically reset step and state when modal type changes
   useEffect(() => {
@@ -337,7 +338,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                     type: 'sent',
                     status: 'confirmed',
                     chain: sendToken.chain,
-                    from: language === 'id' ? 'Anda (Dompet Privy)' : 'You (Privy Wallet)',
+                    from: language === 'id' ? 'Anda (Embedded Wallet)' : 'You (Embedded Wallet)',
                     to: sendRecipient,
                     amount: `-${sendAmount} ${sendToken.symbol}`,
                     tokenSymbol: sendToken.symbol,
@@ -380,7 +381,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                     status: 'confirmed',
                     chain: 'Base',
                     from: 'Stripe Onramp',
-                    to: language === 'id' ? 'Anda (Dompet Privy)' : 'You (Privy Wallet)',
+                    to: language === 'id' ? 'Anda (Embedded Wallet)' : 'You (Embedded Wallet)',
                     amount: `+${((parseFloat(buyFiatAmount) || 0) / buyToken.priceUsd).toFixed(4)} ${buyToken.symbol}`,
                     tokenSymbol: buyToken.symbol,
                     valueUsd: parseFloat(buyFiatAmount || '0'),
@@ -432,7 +433,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                   {type === 'bridge' && (language === 'id' ? 'Bridge Aset Lintas-Jaringan' : 'Cross-Chain Asset Bridge')}
                 </h3>
                 <span className="text-[11px] text-neutral-400">
-                  {type === 'send' && (language === 'id' ? 'Transfer tanpa gas via dompet embedded Privy' : 'Gasless transfers via Privy embedded wallet')}
+                  {type === 'send' && (language === 'id' ? 'Transfer via embedded wallet' : 'Direct transfer via embedded wallet')}
                   {type === 'receive' && (language === 'id' ? 'Alamat setoran multi-chain terpadu' : 'Multi-chain deposit address')}
                   {type === 'swap' && (language === 'id' ? 'Likuiditas teragregasi · Biaya 0%' : 'Aggregated liquidity · 0% fee')}
                   {type === 'buy' && (language === 'id' ? 'Onramp langsung tanpa slippage' : 'Direct onramp with zero slippage')}
@@ -513,8 +514,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                   </h4>
                   <p className="text-xs text-neutral-400 mt-1.5 max-w-xs mx-auto leading-relaxed">
                     {language === 'id'
-                      ? `Permintaan ${type} Anda telah diajukan dan terkonfirmasi on-chain via dompet Privy MPC.`
-                      : `Your ${type} request has been submitted and confirmed on-chain via Privy MPC wallet.`}
+                      ? `Permintaan ${type} Anda telah diajukan dan terkonfirmasi on-chain.`
+                      : `Your ${type} request has been submitted and confirmed on-chain.`}
                   </p>
                 </div>
 
@@ -663,7 +664,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                     <div className="p-3 rounded-xl bg-[#18181E] border border-white/[0.06] text-xs text-neutral-400 space-y-1">
                       <div className="flex justify-between">
                         <span>{language === 'id' ? 'Rute Jaringan' : 'Network Routing'}</span>
-                        <span className="text-white font-mono">{sendToken.chain} (Privy Gasless)</span>
+                        <span className="text-white font-mono">{sendToken.chain}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{language === 'id' ? 'Estimasi Biaya Jaringan' : 'Estimated Network Fee'}</span>
@@ -679,7 +680,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                       {isSubmitting ? (
                         <>
                           <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          {language === 'id' ? 'Mengotorisasi via Privy...' : 'Authorizing via Privy...'}
+                          {language === 'id' ? 'Mengotorisasi transaksi...' : 'Authorizing transaction...'}
                         </>
                       ) : (
                         <>
@@ -1111,7 +1112,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                       </div>
                       <div className="flex justify-between">
                         <span>{language === 'id' ? 'Penyedia Layanan' : 'Provider'}</span>
-                        <span className="text-neutral-300">{language === 'id' ? 'Stripe Onramp (Langsung ke Dompet Privy)' : 'Stripe Onramp (Direct to Privy Wallet)'}</span>
+                        <span className="text-neutral-300">{language === 'id' ? 'Stripe Onramp (Langsung ke Dompet)' : 'Stripe Onramp (Direct to Wallet)'}</span>
                       </div>
                     </div>
 

@@ -34,9 +34,9 @@ export const Hero: React.FC<HeroProps> = ({ onLaunchApp, onDownload }) => {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-2 text-xs font-medium text-neutral-400 mb-6 tracking-wide"
             >
-              <span className="text-neutral-200">Self-Custody Simplified</span>
+              <span className="text-neutral-200">A clearer way to use crypto</span>
               <span className="text-neutral-600">·</span>
-              <span>1 Email : 1 Wallet</span>
+              <span>Self-Custody Interface</span>
             </motion.div>
 
             {/* Headline */}
@@ -46,9 +46,9 @@ export const Hero: React.FC<HeroProps> = ({ onLaunchApp, onDownload }) => {
               transition={{ duration: 0.55, delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold tracking-tight text-white leading-[1.08] max-w-2xl text-balance"
             >
-              Crypto as Easy as{' '}
+              Crypto, clear at a{' '}
               <span className="text-[#0095FF]">
-                GoPay.
+                glance.
               </span>
             </motion.h1>
 
@@ -59,7 +59,7 @@ export const Hero: React.FC<HeroProps> = ({ onLaunchApp, onDownload }) => {
               transition={{ duration: 0.55, delay: 0.2 }}
               className="mt-6 text-lg sm:text-xl text-neutral-300 leading-relaxed max-w-xl text-balance"
             >
-              The everyday crypto wallet for everyone. Send, receive, swap, bridge, buy crypto, and grow your assets in one beautiful wallet.
+              Your assets, in one place. Send, receive, and swap crypto without the usual clutter.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -73,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ onLaunchApp, onDownload }) => {
                 onClick={onLaunchApp}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0095FF] hover:bg-[#0080E0] text-white text-base font-semibold shadow-md shadow-black/20 active:scale-[0.98] transition-all cursor-pointer group"
               >
-                <span>Launch App</span>
+                <span>Open Hybit</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
 
@@ -84,12 +84,12 @@ export const Hero: React.FC<HeroProps> = ({ onLaunchApp, onDownload }) => {
                 <Download className="w-4 h-4 text-neutral-400" />
                 <span>Download</span>
                 <span className="text-xs font-mono text-neutral-400 ml-1">
-                  · Coming Soon
+                  · Coming soon
                 </span>
               </button>
             </motion.div>
 
-            {/* Proof & Trust Signals (Adjacent to CTA) */}
+            {/* Honest Product Principles (Adjacent to CTA) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -97,16 +97,16 @@ export const Hero: React.FC<HeroProps> = ({ onLaunchApp, onDownload }) => {
               className="mt-10 pt-8 border-t border-white/[0.07] grid grid-cols-3 gap-6 sm:gap-8 w-full max-w-lg"
             >
               <div>
-                <div className="text-2xl font-bold text-white font-mono tracking-tight">450K+</div>
-                <div className="text-xs text-neutral-400 mt-0.5">Active Wallets</div>
+                <div className="text-sm font-semibold text-white">Self-Custody</div>
+                <div className="text-xs text-neutral-400 mt-1">Your keys remain in your control</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-[#0095FF] font-mono tracking-tight">&lt; 2s</div>
-                <div className="text-xs text-neutral-400 mt-0.5">Avg Settlement</div>
+                <div className="text-sm font-semibold text-white">Multi-Chain</div>
+                <div className="text-xs text-neutral-400 mt-1">Ethereum, Base, Solana & Arbitrum</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-emerald-400 font-mono tracking-tight">$0 Gas</div>
-                <div className="text-xs text-neutral-400 mt-0.5"><span className="font-chinese text-sm sm:text-base text-neutral-200">Hybit</span> Pay transfers</div>
+                <div className="text-sm font-semibold text-white">Clutter-Free</div>
+                <div className="text-xs text-neutral-400 mt-1">Clean numbers, clear actions</div>
               </div>
             </motion.div>
 

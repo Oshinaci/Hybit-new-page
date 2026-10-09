@@ -4,10 +4,11 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TrustedBy } from './components/TrustedBy';
 import { Features } from './components/Features';
+import { HybitIdSection } from './components/HybitIdSection';
+import { EmbeddedWalletSection } from './components/EmbeddedWalletSection';
 import { WalletPreview } from './components/WalletPreview';
 import { Security } from './components/Security';
 import { Ecosystem } from './components/Ecosystem';
-import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
@@ -23,6 +24,7 @@ import { PortfolioView } from './components/dashboard/PortfolioView';
 import { ActivityView } from './components/dashboard/ActivityView';
 import { SettingsView } from './components/dashboard/SettingsView';
 import { QuickActionModals } from './components/dashboard/QuickActionModals';
+import { TurnkeyConfigModal } from './components/TurnkeyConfigModal';
 import { DashboardPage } from './types/dashboard';
 
 export default function App() {
@@ -116,6 +118,9 @@ export default function App() {
             </React.Fragment>
           </DashboardLayout>
 
+          {/* Turnkey Embedded Wallet Setup Info Modal */}
+          <TurnkeyConfigModal />
+
           {/* Interactive Quick Action Modals */}
           <QuickActionModals
             type={activeQuickAction}
@@ -141,31 +146,34 @@ export default function App() {
 
       {/* Main Content Sections */}
       <main>
-        {/* Hero Section with GoPay-inspired crypto phone mockup */}
+        {/* Hero Section */}
         <Hero onLaunchApp={handleLaunchApp} onDownload={handleDownload} />
 
-        {/* Trusted By & Protocol Integrations */}
+        {/* Supported Networks & Standards */}
         <TrustedBy />
 
-        {/* 6 Core Feature Cards */}
+        {/* Product Overview & Core Tasks */}
         <Features onExploreFeature={(_id) => handleLaunchApp()} />
 
-        {/* Full-Fidelity Desktop Wallet Preview with interactive chart & swap */}
+        {/* Hybit ID Emerging Concept */}
+        <HybitIdSection />
+
+        {/* Embedded Wallet Architecture (Turnkey Roadmap) */}
+        <EmbeddedWalletSection />
+
+        {/* Portfolio and Activity Preview */}
         <WalletPreview onLaunchApp={handleLaunchApp} />
 
-        {/* Security Pillars: Non-custodial, Open Source, Audited, MPC, Encrypted Recovery */}
+        {/* Security Principles: Clear Actions, Clear Consent */}
         <Security />
 
-        {/* Multi-Chain Ecosystem Grid with live telemetry */}
+        {/* Multi-Chain Ecosystem Grid */}
         <Ecosystem />
-
-        {/* Verified User & Developer Testimonials */}
-        <Testimonials />
 
         {/* FAQ Accordion */}
         <FAQ />
 
-        {/* Large Conversion CTA Banner */}
+        {/* Conversion CTA Banner */}
         <CTA onLaunchApp={handleLaunchApp} onDownload={handleDownload} />
       </main>
 

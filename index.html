@@ -3,21 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-    <title>Hybit - Crypto as Easy as GoPay</title>
-    <meta name="description" content="The everyday crypto wallet for everyone. Safely store, send, receive, swap, bridge, and buy digital assets with GoPay simplicity and Apple-grade craft." />
+    <title>Hybit — Crypto, clear at a glance.</title>
+    <meta name="description" content="Your assets, in one place. Send, receive, and swap crypto without the usual clutter." />
     <meta name="theme-color" content="#09090B" />
     <link rel="icon" type="image/svg+xml" href="/hybit-logo.svg" />
+    
+    <!-- Polyfill guard for cross-fetch / getter-only window.fetch in iframe environments -->
+    <script>
+      (function() {
+        try {
+          var target = window;
+          var proto = Object.getPrototypeOf(target);
+          var desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+          var targetObj = target;
+          if (!desc && proto) {
+            desc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+            targetObj = proto;
+          }
+          if (desc && desc.get && !desc.set) {
+            Object.defineProperty(targetObj, 'fetch', {
+              get: desc.get,
+              set: function(val) {
+                Object.defineProperty(this, 'fetch', {
+                  value: val,
+                  writable: true,
+                  configurable: true,
+                  enumerable: true
+                });
+              },
+              configurable: true,
+              enumerable: desc.enumerable !== false
+            });
+          }
+        } catch (e) {
+          // fallback ignore
+        }
+      })();
+    </script>
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Hybit Wallet" />
-    <meta property="og:title" content="Hybit - Crypto as Easy as GoPay" />
-    <meta property="og:description" content="The everyday crypto wallet for everyone. Safely store, send, receive, swap, bridge, and buy digital assets with GoPay simplicity." />
+    <meta property="og:title" content="Hybit — Crypto, clear at a glance." />
+    <meta property="og:description" content="Your assets, in one place. Send, receive, and swap crypto without the usual clutter." />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Hybit - Crypto as Easy as GoPay" />
-    <meta name="twitter:description" content="The everyday crypto wallet for everyone. Safely store, send, receive, swap, bridge, and buy digital assets with GoPay simplicity." />
+    <meta name="twitter:title" content="Hybit — Crypto, clear at a glance." />
+    <meta name="twitter:description" content="Your assets, in one place. Send, receive, and swap crypto without the usual clutter." />
 
     <!-- Google Fonts: Geist Sans, Geist Mono, Lobster (for Hybit name) & Chinese Fallback -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +65,7 @@
       "name": "Hybit Wallet",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "iOS, Android, Web, Chrome",
-      "description": "Hybit is an everyday crypto wallet where users can safely store, send, receive, swap, bridge, buy, and manage digital assets with GoPay simplicity and Apple-grade craft.",
+      "description": "Hybit is a crypto wallet designed for clarity. Your assets, in one place. Send, receive, and swap crypto without the usual clutter.",
       "offers": {
         "@type": "Offer",
         "price": "0",

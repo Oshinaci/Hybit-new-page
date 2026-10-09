@@ -38,7 +38,10 @@ export const TrustedBy: React.FC = () => {
         
         <div className="text-center mb-8">
           <p className="text-xs uppercase tracking-widest text-neutral-400 font-semibold">
-            Secured by & Integrated with Industry-Leading Protocols
+            Supported Networks & Open Standards
+          </p>
+          <p className="text-xs text-neutral-500 mt-1">
+            Direct interoperability across leading layer-1 and layer-2 ecosystems
           </p>
         </div>
 

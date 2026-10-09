@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { FAQItem } from '../types';
 
 export const FAQ: React.FC = () => {
@@ -9,45 +9,45 @@ export const FAQ: React.FC = () => {
   const faqs: FAQItem[] = [
     {
       id: 'faq-1',
-      question: 'How is Hybit as easy as GoPay?',
+      question: 'What is Hybit?',
       answer:
-        'Traditional crypto wallets overwhelm users with 24-word seed phrases, manual RPC network configurations, and cryptic hex addresses. Hybit removes this complexity entirely. You create your wallet in 5 seconds with Passkeys or Face ID, send funds using contact phone numbers or QR codes, and pay with near-zero friction, delivering the familiar simplicity of GoPay or Apple Cash while preserving true Web3 self-custody.',
+        'Hybit is a self-custody crypto wallet built around the principle of clarity. It brings your assets across multiple blockchains into one clean, unified view so you can understand your balances, transfer crypto, and swap tokens without getting bogged down by blockchain clutter.',
       category: 'general',
     },
     {
       id: 'faq-2',
-      question: 'Is Hybit truly non-custodial? Who owns the keys?',
+      question: 'Is Hybit an exchange or a bank?',
       answer:
-        'Yes, 100% non-custodial. Hybit never stores, transmits, or has access to your private cryptographic keys. We use Multi-Party Computation (MPC) and native smart accounts (ERC-4337). Your key shares reside within your local device Secure Enclave and your private encrypted cloud storage. Only you can initiate or sign transactions.',
+        'No. Hybit is not an exchange, a bank, or a custodial financial institution. You maintain sovereign self-custody over your assets. Hybit provides a streamlined interface to interact directly with decentralized networks; we never hold, freeze, or take possession of your funds.',
       category: 'security',
     },
     {
       id: 'faq-3',
-      question: 'What happens if I lose my phone or break my device?',
+      question: 'How does the embedded wallet work?',
       answer:
-        'With Hybit Encrypted Cloud Recovery and MPC threshold cryptography, you never lose your funds. When you set up Hybit, your secondary key share is backed up to your encrypted iCloud Keychain or Google Drive with end-to-end AES-256-GCM encryption. You can also configure trusted guardians (such as hardware keys or verified friends) to authorize account restoration in seconds.',
-      category: 'security',
+        'An embedded wallet allows you to create and access your crypto account through familiar sign-in methods like email, keeping your wallet an integrated part of the experience rather than a separate extension or third-party app. We are engineering this infrastructure on Turnkey, separating authentication from signing authority so you retain cryptographic control.',
+      category: 'general',
     },
     {
       id: 'faq-4',
-      question: 'What blockchains and tokens are supported?',
+      question: 'What is Hybit ID?',
       answer:
-        'Hybit natively supports Ethereum, Base, Solana, Arbitrum, Optimism, Polygon, BNB Chain, Sui, and Aptos. We support all native assets, ERC-20, SPL, and Move tokens, with automated token discovery so you never have to manually import contract addresses.',
+        'Hybit ID is an emerging product concept designed to replace long, error-prone hex addresses with recognizable handles (such as @galang). During transfer preparation, your Hybit ID helps verify the recipient and shows the exact destination network and address before you authorize the transaction.',
       category: 'transfers',
     },
     {
       id: 'faq-5',
-      question: 'Are there hidden fees or markups when swapping tokens?',
+      question: 'Which networks and assets does Hybit support?',
       answer:
-        'Zero hidden markups. Hybit routes swaps through leading decentralized liquidity protocols (Uniswap v3, Curve, Balancer, Aerodrome, Raydium) and applies smart MEV sandwich protection to ensure you get the absolute best execution rate. You only pay network gas fees, which are subsidised or pennies on L2s like Base.',
-      category: 'fees',
+        'Hybit connects with leading layer-1 and layer-2 blockchains including Ethereum, Base, Solana, Arbitrum, Optimism, Polygon, and BNB Chain. You can hold, track, and transact native assets, standard tokens, and digital currencies like USDC in one place.',
+      category: 'transfers',
     },
     {
       id: 'faq-6',
-      question: 'Can I pay for everyday merchants and coffees with Hybit?',
+      question: 'How are fees and transaction approvals handled?',
       answer:
-        'Yes! The Hybit QR Scanner lets you scan any merchant QR code (including ERC-681, Solana Pay, and Hybit Merchant tags) to pay directly with stablecoins like USDC. Transfers settle in under 2 seconds with zero network gas on our partner merchant layer.',
-      category: 'transfers',
+        'Before any transaction is submitted, Hybit displays an explicit summary showing the asset, amount, destination address, selected network, and estimated network gas fee. You review and authorize every action directly with complete transparency.',
+      category: 'fees',
     },
   ];
 
@@ -56,21 +56,22 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 sm:py-32 relative">
+    <section id="faq" className="py-24 sm:py-32 relative border-t border-white/[0.06]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-16">
           <p className="text-xs font-semibold text-[#0095FF] uppercase tracking-wider mb-3">
-            Frequently Asked Questions
+            Questions & Answers
           </p>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Everything You Need to Know.
+            Clear answers.
+            <span className="block text-neutral-400 mt-1">Direct explanations.</span>
           </h2>
 
-          <p className="mt-4 text-base text-neutral-400 max-w-xl mx-auto leading-relaxed">
-            Have questions about security, transfers, or supported chains? Here are straightforward answers.
+          <p className="mt-4 text-base text-neutral-300 max-w-xl mx-auto leading-relaxed text-balance">
+            Understand how Hybit handles custody, accounts, networks, and daily crypto interactions.
           </p>
         </div>
 
@@ -105,7 +106,7 @@ export const FAQ: React.FC = () => {
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-neutral-400 leading-relaxed border-t border-white/[0.04]">
+                      <div className="px-6 pb-6 pt-1 text-sm text-neutral-400 leading-relaxed border-t border-white/[0.04]">
                         {faq.answer}
                       </div>
                     </motion.div>

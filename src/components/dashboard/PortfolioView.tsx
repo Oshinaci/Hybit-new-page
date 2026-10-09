@@ -9,6 +9,7 @@ import { WalletAsset } from '../../types/dashboard';
 import { EthereumIcon, SolanaIcon, BaseIcon, CircleIcon, ArbitrumIcon } from '../icons/NetworkIcons';
 import { useToast } from '../../context/ToastContext';
 import { useAppSettings } from '../../context/AppSettingsContext';
+import { useTurnkeyAuth } from '../../context/TurnkeyAuthContext';
 
 interface PortfolioViewProps {
   onQuickAction: (action: 'send' | 'receive' | 'swap') => void;
@@ -16,7 +17,9 @@ interface PortfolioViewProps {
 
 export const PortfolioView: React.FC<PortfolioViewProps> = ({ onQuickAction }) => {
   const { showToast } = useToast();
-  const { t, formatCurrency, formatGain, language } = useAppSettings();
+  const { t, formatCurrency, formatGain, language, isWalletConnected: appWalletConnected } = useAppSettings();
+  const { isAuthenticated, hasWallet } = useTurnkeyAuth();
+  const isWalletConnected = isAuthenticated ? hasWallet : appWalletConnected;
   const [timeframe, setTimeframe] = useState<'1D' | '1W' | '1M' | '1Y' | 'ALL'>('1M');
   const [searchQuery, setSearchQuery] = useState('');
   const [chainFilter, setChainFilter] = useState('ALL');
@@ -137,7 +140,9 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onQuickAction }) =
     return matchesSearch && matchesChain;
   });
 
-  const totalPortfolioValue = assets.reduce((sum, a) => sum + a.value, 0);
+  const demoPortfolioValue = assets.reduce((sum, a) => sum + a.value, 0);
+  // Real authenticated wallet has no live token indexer attached yet, so its verified balance is 0.00 until funded
+  const totalPortfolioValue = isAuthenticated ? 0 : (isWalletConnected ? demoPortfolioValue : 0);
 
   const renderIcon = (id: string, className = 'w-7 h-7 sm:w-8 sm:h-8') => {
     switch (id) {

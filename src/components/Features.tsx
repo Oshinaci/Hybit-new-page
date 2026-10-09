@@ -19,81 +19,81 @@ export const Features: React.FC<{ onExploreFeature?: (id: string) => void }> = (
 
   const features = [
     {
-      id: 'easy-wallet',
-      title: 'Easy Wallet',
-      subtitle: 'Digital Cash Simplicity',
+      id: 'unified-balances',
+      title: 'Unified Balances',
+      subtitle: 'Multi-Chain Overview',
       description:
-        'Create a self-custody wallet in 5 seconds with Passkey or biometric login. No 24-word paper seeds to misplace, just GoPay-level simplicity.',
+        'See your total portfolio across Ethereum, Base, Solana, and Arbitrum in one clear view. No manual network toggling just to check your holdings.',
       icon: Wallet,
       details: [
-        'WebAuthn & Apple FaceID / TouchID support',
-        'Automatic cloud enclave sync',
-        'Instant multi-account switching',
+        'Multi-network balance aggregation',
+        'Transparent asset values by token',
+        'Consolidated portfolio totals',
       ],
     },
     {
-      id: 'one-tap-swap',
-      title: 'One Tap Swap',
-      subtitle: 'Smart Liquidity Engine',
+      id: 'direct-transfers',
+      title: 'Direct Transfers',
+      subtitle: 'Send & Receive',
       description:
-        'Swap any token across 40+ decentralized exchanges in one tap. Built-in MEV protection guarantees lowest slippage and zero hidden markups.',
-      icon: Repeat,
-      details: [
-        'Deep routing across Uniswap, Curve & Aerodrome',
-        'Automated slippage guard',
-        'Zero extra platform protocol fees',
-      ],
-    },
-    {
-      id: 'cross-chain-bridge',
-      title: 'Cross Chain Bridge',
-      subtitle: 'Powered by LayerZero',
-      description:
-        'Move native assets across Ethereum, Base, Solana, and 10+ networks without dealing with confusing wrapped tokens or dangerous bridges.',
-      icon: Layers,
-      details: [
-        'Sub-30 second cross-chain settlement',
-        'Native USDC transfer via Circle CCTP',
-        'Unified multi-network balance view',
-      ],
-    },
-    {
-      id: 'portfolio-tracking',
-      title: 'Portfolio Tracking',
-      subtitle: 'Bank-Grade Financial Clarity',
-      description:
-        'Live P&L calculations, historical return charts, staking rewards, and automated tax-ready reporting across every linked blockchain address.',
-      icon: LineChart,
-      details: [
-        'Real-time price feeds via Chainlink',
-        'Historical cost basis calculation',
-        'DeFi LP and staking yield breakdowns',
-      ],
-    },
-    {
-      id: 'secure-recovery',
-      title: 'Secure Recovery',
-      subtitle: 'Multi-Party Computation',
-      description:
-        'Never stress about losing your phrase again. Multi-Party Computation splits keys into encrypted shares with seamless social and cloud recovery.',
-      icon: ShieldCheck,
-      details: [
-        '2-of-3 threshold signature scheme',
-        'AES-256 encrypted zero-knowledge backup',
-        'Trusted contact guardian recovery',
-      ],
-    },
-    {
-      id: 'fast-transfer',
-      title: 'Fast Transfer',
-      subtitle: 'Send Like a Message',
-      description:
-        'Transfer crypto to friends using phone numbers, usernames, ENS tags, or instant QR codes. Enjoy near-instant finality with zero gas fees on Hybit Pay.',
+        'Transfer crypto with clear destination verification. Review the recipient, network, and estimated fees before authorizing any transaction.',
       icon: Zap,
       details: [
-        'Peer-to-peer phone number resolution',
-        'Scan-to-pay QR code generator',
-        'Batch transfers in single transaction',
+        'Explicit destination address checks',
+        'Network and fee breakdown before signing',
+        'Real-time transaction status feedback',
+      ],
+    },
+    {
+      id: 'straightforward-swaps',
+      title: 'Straightforward Swaps',
+      subtitle: 'Token Exchange',
+      description:
+        'Trade tokens directly from your wallet interface. Inspect exchange rates, minimum received amounts, and network gas without hidden markups.',
+      icon: Repeat,
+      details: [
+        'Transparent quote and price impacts',
+        'Customizable slippage parameters',
+        'Direct on-chain swap routing',
+      ],
+    },
+    {
+      id: 'cross-chain-movement',
+      title: 'Cross-Network Movement',
+      subtitle: 'Asset Bridging',
+      description:
+        'Move supported assets between networks with step-by-step progress tracking, so you always know where your transfer stands.',
+      icon: Layers,
+      details: [
+        'Supported routes across major ecosystems',
+        'Step-by-step transfer progress',
+        'Direct deposit to your destination address',
+      ],
+    },
+    {
+      id: 'clear-history',
+      title: 'Clear Transaction History',
+      subtitle: 'Activity & Receipts',
+      description:
+        'Understand what happened with a clean, timestamped record of every incoming and outgoing transfer, complete with block explorer links.',
+      icon: LineChart,
+      details: [
+        'Detailed transaction timestamps and values',
+        'Network and counterparty details',
+        'Direct verification on block explorers',
+      ],
+    },
+    {
+      id: 'self-custody',
+      title: 'Self-Custodial Control',
+      subtitle: 'Your Keys, Your Authority',
+      description:
+        'You maintain authority over your assets. Hybit never acts as a custodial broker, cannot freeze your funds, and requires your consent to sign.',
+      icon: ShieldCheck,
+      details: [
+        'Client-side transaction authorization',
+        'No custodial intermediary holding your assets',
+        'Designed for embedded self-custody',
       ],
     },
   ];
@@ -105,16 +105,16 @@ export const Features: React.FC<{ onExploreFeature?: (id: string) => void }> = (
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-20">
           <p className="text-xs font-semibold text-[#0095FF] uppercase tracking-wider mb-3">
-            Engineered for Daily Life
+            Product Overview
           </p>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Built with the Simplicity You Expect,
-            <span className="block text-neutral-400 mt-1">the Power Web3 Deserves.</span>
+            Everything you need.
+            <span className="block text-neutral-400 mt-1">Nothing to figure out.</span>
           </h2>
           
-          <p className="mt-4 text-base sm:text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            Every feature in <span className="font-chinese text-lg sm:text-xl text-white inline-block">Hybit</span> is crafted with Apple-grade precision and Stripe-level clarity, eliminating blockchain friction for good.
+          <p className="mt-4 text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed text-balance">
+            Check your balance, find an asset, or make a transfer from a single, familiar interface. Hybit puts the important details first, so you can act with confidence.
           </p>
         </div>
 

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { getTurnkeyConfig } from '../config/turnkey';
 
 export type AppLanguage = 'id' | 'en';
 
@@ -264,10 +265,10 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     hashCopied: 'Hash Transaksi Disalin',
     
     settingsTitle: 'Pengaturan & Keamanan',
-    settingsSubtitle: 'Kelola dompet Privy embedded, keamanan biometrik, mata uang, dan preferensi bahasa.',
-    walletCardTitle: 'Dompet Tertanam Privy MPC',
+    settingsSubtitle: 'Kelola dompet embedded, keamanan akses, mata uang, dan preferensi bahasa.',
+    walletCardTitle: 'Dompet Tertanam (Embedded Wallet)',
     walletEmailLabel: 'Terkait Akun Email',
-    walletAddressLabel: 'Alamat Publik MPC',
+    walletAddressLabel: 'Alamat Publik Dompet',
     securitySectionTitle: 'Keamanan & Akses Biometrik',
     passkeyTitle: 'Passkey Biometrik (Face ID / Sidik Jari)',
     passkeyDesc: 'Gunakan keamanan perangkat untuk otorisasi transaksi tanpa seed phrase.',
@@ -294,13 +295,13 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     
     logoutButton: 'Keluar',
     logoutTitle: 'Keluar dari Dompet',
-    logoutDesc: 'Tutup sesi Privy MPC terenkripsi pada perangkat ini. Saldo dan kunci tetap aman di enclave.',
+    logoutDesc: 'Tutup sesi dompet pada perangkat ini. Saldo dan kunci tetap aman.',
     logoutSuccessTitle: 'Berhasil Keluar',
     logoutSuccessMessage: 'Sesi dompet Anda telah ditutup dengan aman. Anda tetap berada di dashboard.',
     connectWallet: 'Hubungkan Dompet',
-    walletConnectedToast: 'Dompet Privy MPC berhasil terhubung.',
+    walletConnectedToast: 'Dompet berhasil terhubung.',
     walletDisconnected: 'Dompet Belum Terhubung',
-    walletDisconnectedDesc: 'Hubungkan dompet Privy MPC Anda untuk melihat saldo, riwayat, dan bertransaksi.',
+    walletDisconnectedDesc: 'Hubungkan dompet Anda untuk melihat saldo, riwayat, dan bertransaksi.',
     
     sendTitle: 'Kirim Aset Kripto',
     receiveTitle: 'Terima Aset Kripto',
@@ -409,10 +410,10 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     hashCopied: 'Transaction Hash Copied',
     
     settingsTitle: 'Settings & Security',
-    settingsSubtitle: 'Manage your Privy embedded wallet, biometric passkeys, currency, and language preferences.',
-    walletCardTitle: 'Privy Embedded Wallet',
+    settingsSubtitle: 'Manage your embedded wallet, security settings, currency, and language preferences.',
+    walletCardTitle: 'Embedded Wallet',
     walletEmailLabel: 'Tied Email Account',
-    walletAddressLabel: 'Public MPC Address',
+    walletAddressLabel: 'Public Wallet Address',
     securitySectionTitle: 'Security & Biometrics',
     passkeyTitle: 'Biometric Passkey (Face ID / Fingerprint)',
     passkeyDesc: 'Use hardware enclave for gasless transaction signing without seed phrase.',
@@ -439,13 +440,13 @@ const TRANSLATIONS: Record<AppLanguage, TranslationDictionary> = {
     
     logoutButton: 'Log Out',
     logoutTitle: 'Log Out Wallet',
-    logoutDesc: 'Disconnect active Privy MPC session on this device. Your keys remain safe in enclave.',
+    logoutDesc: 'Disconnect active wallet session on this device. Your keys remain safe.',
     logoutSuccessTitle: 'Logged Out',
     logoutSuccessMessage: 'Your wallet session has been disconnected securely. You remain on the dashboard.',
     connectWallet: 'Connect Wallet',
-    walletConnectedToast: 'Privy MPC wallet connected successfully.',
+    walletConnectedToast: 'Embedded wallet connected successfully.',
     walletDisconnected: 'Wallet Not Connected',
-    walletDisconnectedDesc: 'Connect your Privy MPC wallet to view balances, history, and transact.',
+    walletDisconnectedDesc: 'Connect your wallet to view balances, history, and transact.',
     
     sendTitle: 'Send Crypto Assets',
     receiveTitle: 'Receive Crypto Assets',
@@ -499,6 +500,9 @@ interface AppSettingsContextValue {
   logoutWallet: () => void;
   walletAddress: string;
   walletEmail: string;
+  isTurnkeyConfigured: boolean;
+  isRealWallet: boolean;
+  openTurnkeyModal?: () => void;
 }
 
 const STORAGE_LANG_KEY = 'hybit_language';
@@ -650,6 +654,8 @@ export const AppSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ c
     [currentCurrency]
   );
 
+  const turnkeyConfig = useMemo(() => getTurnkeyConfig(), []);
+
   return (
     <AppSettingsContext.Provider
       value={{
@@ -668,6 +674,8 @@ export const AppSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ c
         logoutWallet,
         walletAddress,
         walletEmail,
+        isTurnkeyConfigured: turnkeyConfig.isConfigured,
+        isRealWallet: false,
       }}
     >
       {children}

@@ -58,7 +58,12 @@ export const Footer: React.FC<{ onDownload?: () => void }> = ({ onDownload }) =>
             </a>
             
             <p className="text-sm text-neutral-400 max-w-sm leading-relaxed mb-6">
-              <span className="font-chinese text-base sm:text-lg text-white">Hybit</span> is the everyday crypto wallet where anyone can safely store, send, receive, swap, and manage digital assets with GoPay-level simplicity.
+              <span className="font-chinese text-base sm:text-lg text-white">Hybit</span> — Crypto, clear at a glance. Your assets, in one place. Send, receive, and swap crypto without the usual clutter.
+            </p>
+
+            {/* Legal Notice */}
+            <p className="text-xs text-neutral-500 max-w-sm leading-relaxed mb-6">
+              Hybit is an interface for self-custodial wallets. Not a bank, exchange, or custodial account.
             </p>
 
             {/* System Status Indicator - Clean unboxed text */}
@@ -133,7 +138,7 @@ export const Footer: React.FC<{ onDownload?: () => void }> = ({ onDownload }) =>
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
           <div>
-            © {new Date().getFullYear()} <span className="font-chinese text-sm sm:text-base text-neutral-200">Hybit</span> Labs, Inc. All rights reserved. Crypto as Easy as GoPay.
+            © {new Date().getFullYear()} <span className="font-chinese text-sm sm:text-base text-neutral-200">Hybit</span>. All rights reserved. Crypto, clear at a glance.
           </div>
 
           <div className="flex items-center gap-6">

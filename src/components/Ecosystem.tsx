@@ -11,7 +11,6 @@ import {
   SuiIcon,
   AptosIcon,
 } from './icons/NetworkIcons';
-import { Globe2, Zap, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { SupportedNetwork } from '../types';
 
 export const Ecosystem: React.FC = () => {
@@ -22,91 +21,82 @@ export const Ecosystem: React.FC = () => {
       id: 'ethereum',
       name: 'Ethereum',
       type: 'EVM',
-      tps: '15-30',
-      avgFee: '$0.85',
-      finality: '12 min',
+      architecture: 'L1 Base Layer',
+      tokenStandard: 'ERC-20 / ERC-721',
       token: 'ETH',
-      description: 'The foundation of decentralized security and high-value DeFi settlement.',
+      description: 'The foundation of decentralized security and core high-value settlement.',
     },
     {
       id: 'base',
       name: 'Base',
       type: 'L2',
-      tps: '65-120',
-      avgFee: '< $0.01',
-      finality: '1 sec',
+      architecture: 'Optimistic Rollup',
+      tokenStandard: 'ERC-20 (L2)',
       token: 'ETH',
-      description: 'Coinbase-incubated Ethereum L2 built for frictionless consumer applications.',
+      description: 'Ethereum layer 2 incubated by Coinbase, built for everyday consumer applications.',
     },
     {
       id: 'arbitrum',
       name: 'Arbitrum One',
       type: 'L2',
-      tps: '80-150',
-      avgFee: '$0.02',
-      finality: '1 sec',
+      architecture: 'Nitro Rollup',
+      tokenStandard: 'ERC-20 (Arbitrum)',
       token: 'ETH',
-      description: 'Leading Ethereum rollup with massive liquidity and low execution latency.',
+      description: 'Leading Ethereum rollup with deep liquidity across decentralized applications.',
     },
     {
       id: 'optimism',
       name: 'Optimism',
       type: 'L2',
-      tps: '60-110',
-      avgFee: '$0.02',
-      finality: '1 sec',
+      architecture: 'OP Stack Rollup',
+      tokenStandard: 'ERC-20 (OP)',
       token: 'ETH',
-      description: 'Fast, secure L2 rollup powering the Superchain ecosystem.',
+      description: 'Layer 2 rollup scaling Ethereum as part of the interconnected Superchain ecosystem.',
     },
     {
       id: 'polygon',
       name: 'Polygon PoS',
       type: 'EVM',
-      tps: '90-140',
-      avgFee: '< $0.01',
-      finality: '2.1 sec',
+      architecture: 'Proof-of-Stake',
+      tokenStandard: 'ERC-20 (POL)',
       token: 'POL',
-      description: 'High-speed EVM chain with extensive gaming and enterprise adoption.',
+      description: 'High-throughput EVM chain widely used for payments, gaming, and digital assets.',
     },
     {
       id: 'bnb',
       name: 'BNB Chain',
       type: 'EVM',
-      tps: '100-200',
-      avgFee: '$0.03',
-      finality: '3 sec',
+      architecture: 'Proof of Staked Authority',
+      tokenStandard: 'BEP-20',
       token: 'BNB',
-      description: 'High-throughput smart contract network with deep global retail volume.',
+      description: 'EVM-compatible network supported by global retail and ecosystem liquidity.',
     },
     {
       id: 'solana',
       name: 'Solana',
       type: 'Non-EVM',
-      tps: '2,500+',
-      avgFee: '< $0.001',
-      finality: '400 ms',
+      architecture: 'Parallel SVM',
+      tokenStandard: 'SPL Token',
       token: 'SOL',
-      description: 'Ultra high-speed parallel blockchain engineered for instantaneous payments.',
+      description: 'Parallelized high-throughput blockchain designed for fast transfer execution.',
     },
     {
       id: 'sui',
       name: 'Sui Network',
       type: 'Non-EVM',
-      tps: '3,000+',
-      avgFee: '< $0.001',
-      finality: '390 ms',
+      architecture: 'Object-Centric Move',
+      tokenStandard: 'Sui Move Coin',
       token: 'SUI',
-      description: 'Object-centric Move blockchain providing parallel transaction execution.',
+      description: 'Object-oriented smart contract network utilizing parallel execution architecture.',
     },
     {
       id: 'aptos',
       name: 'Aptos',
       type: 'Non-EVM',
-      tps: '2,800+',
-      avgFee: '< $0.001',
-      finality: '450 ms',
+      architecture: 'Parallel Block-STM',
+      tokenStandard: 'Aptos Fungible Asset',
       token: 'APT',
-      description: 'Block-STM parallel execution engine designed for massive user scale.',
+      description: 'Move-based blockchain built for scalability and developer-friendly safety.',
     },
   ];
 
@@ -131,29 +121,32 @@ export const Ecosystem: React.FC = () => {
       case 'aptos':
         return <AptosIcon className={className} />;
       default:
-        return <Globe2 className={`${className} text-[#0095FF]`} />;
+        return <EthereumIcon className={className} />;
     }
   };
 
-  const filteredNetworks = filter === 'ALL' ? networks : networks.filter((n) => n.type === filter);
+  const filteredNetworks = networks.filter((net) => {
+    if (filter === 'ALL') return true;
+    return net.type === filter;
+  });
 
   return (
-    <section id="ecosystem" className="py-24 sm:py-32 relative">
+    <section id="ecosystem" className="py-24 sm:py-32 relative border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <p className="text-xs font-semibold text-[#0095FF] uppercase tracking-wider mb-3">
-              Multi-Chain Unified Liquidity
+              Multi-Chain Ecosystem
             </p>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-              Every Network in Your Pocket.
+              Supported networks.
             </h2>
             
-            <p className="mt-3 text-base text-neutral-400 max-w-xl">
-              One wallet, unified balances. Transact across EVM, Layer 2s, and non-EVM chains without manual network switching.
+            <p className="mt-3 text-base text-neutral-300 max-w-xl">
+              View balances and prepare transactions across Ethereum, Base, Solana, Arbitrum, and other networks without switching apps.
             </p>
           </div>
 
@@ -201,7 +194,7 @@ export const Ecosystem: React.FC = () => {
                     </div>
                   </div>
 
-                  <span className="text-[11px] font-mono text-neutral-400">
+                  <span className="text-[11px] font-mono text-neutral-400 px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.06]">
                     {net.type}
                   </span>
                 </div>
@@ -211,19 +204,15 @@ export const Ecosystem: React.FC = () => {
                 </p>
               </div>
 
-              {/* Telemetry Row */}
-              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-white/[0.06] text-center">
+              {/* Technical Specifications Row */}
+              <div className="grid grid-cols-2 gap-2 pt-4 border-t border-white/[0.06]">
                 <div className="p-2 rounded-lg bg-white/[0.02]">
-                  <div className="text-[10px] text-neutral-500 font-mono">Avg TPS</div>
-                  <div className="text-xs font-mono font-bold text-white mt-0.5">{net.tps}</div>
+                  <div className="text-[10px] text-neutral-500 font-mono">Architecture</div>
+                  <div className="text-xs font-mono font-medium text-neutral-200 mt-0.5 truncate">{net.architecture}</div>
                 </div>
                 <div className="p-2 rounded-lg bg-white/[0.02]">
-                  <div className="text-[10px] text-neutral-500 font-mono">Avg Fee</div>
-                  <div className="text-xs font-mono font-bold text-emerald-400 mt-0.5">{net.avgFee}</div>
-                </div>
-                <div className="p-2 rounded-lg bg-white/[0.02]">
-                  <div className="text-[10px] text-neutral-500 font-mono">Finality</div>
-                  <div className="text-xs font-mono font-bold text-neutral-200 mt-0.5">{net.finality}</div>
+                  <div className="text-[10px] text-neutral-500 font-mono">Standard</div>
+                  <div className="text-xs font-mono font-medium text-neutral-200 mt-0.5 truncate">{net.tokenStandard}</div>
                 </div>
               </div>
 

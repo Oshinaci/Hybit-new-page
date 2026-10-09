@@ -36,9 +36,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onLaunchApp, onDownload }) => {
 
   const navLinks = [
     { label: 'Features', href: '#features' },
-    { label: 'Wallet Preview', href: '#preview' },
+    { label: 'Hybit ID', href: '#hybit-id' },
+    { label: 'Embedded Wallet', href: '#embedded-wallet' },
+    { label: 'Portfolio', href: '#preview' },
     { label: 'Security', href: '#security' },
-    { label: 'Ecosystem', href: '#ecosystem' },
     { label: 'FAQ', href: '#faq' },
   ];
 
@@ -84,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onLaunchApp, onDownload }) => {
               >
                 <span>Download</span>
                 <span className="text-[10px] font-mono text-neutral-500">
-                  · Coming Soon
+                  · Coming soon
                 </span>
               </button>
             </nav>
@@ -95,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onLaunchApp, onDownload }) => {
                 onClick={onLaunchApp}
                 className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide text-white bg-[#0095FF] hover:bg-[#0080E0] shadow-sm active:scale-[0.98] transition-colors duration-150 cursor-pointer"
               >
-                <span>Launch App</span>
+                <span>Open Hybit</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
 

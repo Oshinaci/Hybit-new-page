@@ -124,41 +124,42 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <p className="text-xs font-semibold text-[#0095FF] uppercase tracking-wider mb-3">
-            Full-Fidelity Desktop & Web Console
+            Portfolio and Activity
           </p>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Designed for Speed. Engineered for Control.
+            Know what you have.
+            <span className="block text-neutral-400 mt-1">Know what happened.</span>
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            Experience an everyday financial dashboard with Apple minimalism, real-time DeFi execution, and zero clutter.
+          <p className="mt-4 text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed text-balance">
+            See your balances, transaction history, and portfolio changes in one place. Every number should help you understand your assets, not leave you guessing.
           </p>
         </div>
 
         {/* Desktop Interface Card */}
         <div className="relative rounded-3xl bg-[#101014] border border-white/10 shadow-2xl shadow-black overflow-hidden backdrop-blur-xl">
           
-          {/* Top Window Bar (Mac OS inspired clean dots) */}
+          {/* Top Window Bar */}
           <div className="px-6 py-4 border-b border-white/[0.08] bg-[#0B0B0E] flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-neutral-700 hover:bg-rose-500 transition-colors" />
               <span className="w-3 h-3 rounded-full bg-neutral-700 hover:bg-amber-500 transition-colors" />
               <span className="w-3 h-3 rounded-full bg-neutral-700 hover:bg-emerald-500 transition-colors" />
               <span className="ml-3 text-xs text-neutral-400 font-mono hidden sm:inline-block">
-                app.hybit.wallet/dashboard
+                app.hybit.wallet/dashboard · Sample Data Preview
               </span>
             </div>
 
             <div className="flex items-center gap-3">
               <span className="hidden sm:inline text-xs font-mono text-neutral-400">
-                1 Email : 1 Wallet
+                Self-Custody
               </span>
               <button
                 onClick={onLaunchApp}
                 className="text-xs text-[#0095FF] hover:text-[#0080E0] flex items-center gap-1 font-semibold transition-colors cursor-pointer"
               >
-                <span>Open Full App</span>
+                <span>Open Hybit</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
             </div>
