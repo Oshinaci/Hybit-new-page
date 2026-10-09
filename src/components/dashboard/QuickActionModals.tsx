@@ -570,7 +570,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                           className="w-full px-3 py-2.5 rounded-xl bg-[#1C1C23] border border-white/10 hover:border-white/20 text-white text-sm flex items-center justify-between transition-all cursor-pointer"
                         >
                           <div className="flex items-center gap-2">
-                            <sendToken.icon className="w-4 h-4 shrink-0 text-[#0095FF]" />
+                            <sendToken.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
                             <span className="font-semibold">{sendToken.symbol}</span>
                             <span className="text-[11px] text-neutral-400">({sendToken.chain})</span>
                           </div>
@@ -614,8 +614,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                                           sendTokenId === t.id ? 'bg-[#0095FF]/15 text-[#0095FF] font-semibold' : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
                                         }`}
                                       >
-                                        <div className="flex items-center gap-2">
-                                          <t.icon className="w-4 h-4 shrink-0" />
+                                        <div className="flex items-center gap-2.5">
+                                          <t.icon className="w-5 h-5 shrink-0" />
                                           <div className="text-left">
                                             <div className="font-semibold text-white">{t.symbol}</div>
                                             <div className="text-[10px] text-neutral-400">{t.name} · {t.chain}</div>
@@ -791,7 +791,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                             }}
                             className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-xs font-semibold text-white transition-all cursor-pointer shadow-sm"
                           >
-                            <swapPayToken.icon className="w-4 h-4 shrink-0 text-[#0095FF]" />
+                            <swapPayToken.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
                             <span>{swapPayToken.symbol}</span>
                             <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 transition-transform ${swapPayDropdownOpen ? 'rotate-180 text-[#0095FF]' : ''}`} />
                           </button>
@@ -833,8 +833,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                                             swapPayTokenId === t.id ? 'bg-[#0095FF]/15 text-[#0095FF] font-semibold' : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
                                           }`}
                                         >
-                                          <div className="flex items-center gap-2">
-                                            <t.icon className="w-4 h-4 shrink-0" />
+                                          <div className="flex items-center gap-2.5">
+                                            <t.icon className="w-5 h-5 shrink-0" />
                                             <div className="text-left">
                                               <div className="font-semibold text-white">{t.symbol}</div>
                                               <div className="text-[10px] text-neutral-400">{t.name} · {t.chain}</div>
@@ -897,7 +897,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                             }}
                             className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 text-xs font-semibold text-white transition-all cursor-pointer shadow-sm"
                           >
-                            <swapReceiveToken.icon className="w-4 h-4 shrink-0 text-[#0095FF]" />
+                            <swapReceiveToken.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
                             <span>{swapReceiveToken.symbol}</span>
                             <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 transition-transform ${swapReceiveDropdownOpen ? 'rotate-180 text-[#0095FF]' : ''}`} />
                           </button>
@@ -939,8 +939,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                                             swapReceiveTokenId === t.id ? 'bg-[#0095FF]/15 text-[#0095FF] font-semibold' : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
                                           }`}
                                         >
-                                          <div className="flex items-center gap-2">
-                                            <t.icon className="w-4 h-4 shrink-0" />
+                                          <div className="flex items-center gap-2.5">
+                                            <t.icon className="w-5 h-5 shrink-0" />
                                             <div className="text-left">
                                               <div className="font-semibold text-white">{t.symbol}</div>
                                               <div className="text-[10px] text-neutral-400">{t.name} · {t.chain}</div>
@@ -1014,7 +1014,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                         className="w-full px-3.5 py-2.5 rounded-xl bg-[#1C1C23] border border-white/10 hover:border-white/20 text-white text-sm flex items-center justify-between transition-all cursor-pointer"
                       >
                         <div className="flex items-center gap-2">
-                          <buyToken.icon className="w-4 h-4 shrink-0 text-[#0095FF]" />
+                          <buyToken.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
                           <span className="font-semibold">{buyToken.symbol}</span>
                           <span className="text-neutral-400 text-xs">({buyToken.name})</span>
                         </div>
@@ -1058,8 +1058,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                                         buyTokenId === t.id ? 'bg-[#0095FF]/15 text-[#0095FF] font-semibold' : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
                                       }`}
                                     >
-                                      <div className="flex items-center gap-2">
-                                        <t.icon className="w-4 h-4 shrink-0" />
+                                      <div className="flex items-center gap-2.5">
+                                        <t.icon className="w-5 h-5 shrink-0" />
                                         <div className="text-left">
                                           <div className="font-semibold text-white">{t.symbol}</div>
                                           <div className="text-[10px] text-neutral-400">{t.name}</div>
@@ -1165,7 +1165,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                             className="w-full px-3 py-2 rounded-xl bg-[#141419] border border-white/10 hover:border-white/20 text-white text-xs flex items-center justify-between transition-all cursor-pointer"
                           >
                             <div className="flex items-center gap-2 truncate">
-                              <bridgeSourceChain.icon className="w-4 h-4 shrink-0 text-[#0095FF]" />
+                              <bridgeSourceChain.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
                               <span className="font-semibold truncate">{bridgeSourceChain.name}</span>
                             </div>
                             <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 shrink-0 transition-transform ${bridgeSourceDropdownOpen ? 'rotate-180 text-[#0095FF]' : ''}`} />
@@ -1213,8 +1213,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                                               : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
                                           }`}
                                         >
-                                          <div className="flex items-center gap-2">
-                                            <c.icon className="w-4 h-4 shrink-0" />
+                                          <div className="flex items-center gap-2.5">
+                                            <c.icon className="w-5 h-5 shrink-0" />
                                             <span className="font-medium">{c.name}</span>
                                           </div>
                                           <span className="text-[10px] font-mono text-neutral-400">{c.badge}</span>
@@ -1243,7 +1243,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                             className="w-full px-3 py-2 rounded-xl bg-[#141419] border border-white/10 hover:border-white/20 text-white text-xs flex items-center justify-between transition-all cursor-pointer"
                           >
                             <div className="flex items-center gap-2">
-                              <bridgeToken.icon className="w-4 h-4 shrink-0 text-[#0095FF]" />
+                              <bridgeToken.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
                               <span className="font-semibold">{bridgeToken.symbol}</span>
                             </div>
                             <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 transition-transform ${bridgeTokenDropdownOpen ? 'rotate-180 text-[#0095FF]' : ''}`} />
@@ -1286,8 +1286,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                                             bridgeTokenId === t.id ? 'bg-[#0095FF]/15 text-[#0095FF] font-semibold' : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
                                           }`}
                                         >
-                                          <div className="flex items-center gap-2">
-                                            <t.icon className="w-4 h-4 shrink-0" />
+                                          <div className="flex items-center gap-2.5">
+                                            <t.icon className="w-5 h-5 shrink-0" />
                                             <span className="font-semibold text-white">{t.symbol}</span>
                                           </div>
                                           <span className="text-[11px] font-mono text-neutral-400">{language === 'id' ? 'Saldo:' : 'Bal:'} {t.balance}</span>
@@ -1357,7 +1357,7 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                           className="w-full px-3 py-2 rounded-xl bg-[#141419] border border-white/10 hover:border-white/20 text-white text-xs flex items-center justify-between transition-all cursor-pointer"
                         >
                           <div className="flex items-center gap-2 truncate">
-                            <bridgeDestChain.icon className="w-4 h-4 shrink-0 text-[#0095FF]" />
+                            <bridgeDestChain.icon className="w-5 h-5 shrink-0 text-[#0095FF]" />
                             <span className="font-semibold truncate">{bridgeDestChain.name}</span>
                           </div>
                           <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 shrink-0 transition-transform ${bridgeDestDropdownOpen ? 'rotate-180 text-[#0095FF]' : ''}`} />
@@ -1405,8 +1405,8 @@ export const QuickActionModals: React.FC<QuickActionModalProps> = ({
                                             : 'text-neutral-300 hover:bg-white/[0.06] hover:text-white'
                                         }`}
                                       >
-                                        <div className="flex items-center gap-2">
-                                          <c.icon className="w-4 h-4 shrink-0" />
+                                        <div className="flex items-center gap-2.5">
+                                          <c.icon className="w-5 h-5 shrink-0" />
                                           <span className="font-medium">{c.name}</span>
                                         </div>
                                         <span className="text-[10px] font-mono text-neutral-400">{c.badge}</span>

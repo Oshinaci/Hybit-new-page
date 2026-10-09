@@ -88,7 +88,7 @@ export const HybitLogo: React.FC<{ className?: string; size?: number; showText?:
 };
 
 // Ethereum
-export const EthereumIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const EthereumIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 24 24" fill="none" className={className}>
     <path d="M12 2L4.5 12.5L12 16.5L19.5 12.5L12 2Z" fill="currentColor" fillOpacity="0.85" />
     <path d="M12 18L4.5 13.5L12 22L19.5 13.5L12 18Z" fill="currentColor" fillOpacity="0.6" />
@@ -99,7 +99,7 @@ export const EthereumIcon: React.FC<{ className?: string }> = ({ className = 'w-
 
 // Base L2 (Official Base Symbol: Circle with horizontal bar)
 export const BaseIcon: React.FC<{ className?: string; fill?: string }> = ({
-  className = 'w-5 h-5',
+  className = 'w-6 h-6',
   fill = 'currentColor',
 }) => (
   <svg viewBox="0 0 32 32" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +113,7 @@ export const BaseIcon: React.FC<{ className?: string; fill?: string }> = ({
 );
 
 // Solana - Official Black Badge with Gradient Glyph (transparent outer background)
-export const SolanaIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const SolanaIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg
     viewBox="0 0 512 512"
     fill="none"
@@ -182,7 +182,7 @@ export const SolanaIcon: React.FC<{ className?: string }> = ({ className = 'w-5 
 );
 
 // Polygon PoS - Official Polygon Icon
-export const PolygonIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const PolygonIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg
     viewBox="0 0 360 360"
     fill="none"
@@ -198,7 +198,7 @@ export const PolygonIcon: React.FC<{ className?: string }> = ({ className = 'w-5
 );
 
 // Arbitrum One - Official Arbitrum Logomark FullColor
-export const ArbitrumIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const ArbitrumIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg
     viewBox="0 0 2500 2500"
     fill="none"
@@ -239,7 +239,7 @@ export const ArbitrumIcon: React.FC<{ className?: string }> = ({ className = 'w-
 );
 
 // Optimism (OP) - Official Optimism Red Badge with White OP Glyph
-export const OptimismIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const OptimismIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg
     viewBox="0 0 1037 1037"
     fill="none"
@@ -257,7 +257,7 @@ export const OptimismIcon: React.FC<{ className?: string }> = ({ className = 'w-
 );
 
 // BNB Chain
-export const BNBIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const BNBIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 2L15.5 5.5L8.5 12.5L5 9L12 2Z" />
     <path d="M19 9L22.5 12.5L19 16L15.5 12.5L19 9Z" />
@@ -268,14 +268,14 @@ export const BNBIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5
 );
 
 // Sui
-export const SuiIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const SuiIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M12 2C9.5 5.5 6 9.5 6 14C6 17.3 8.7 20 12 20C15.3 20 18 17.3 18 14C18 9.5 14.5 5.5 12 2ZM12 17.5C10.1 17.5 8.5 15.9 8.5 14C8.5 11.5 10.5 8.6 12 6.5C13.5 8.6 15.5 11.5 15.5 14C15.5 15.9 13.9 17.5 12 17.5Z" />
+    <path d="M12 2C9.5 5.5 6 9.5 6 14C6 17.3 8.7 20 12 20C15.3 20 18 17.3 18 14C18 9.5 14.5 5.5 12 2ZM12 17.5C10.1 17.5 8.5 15.9 8.5 14C8.5 11.5 10.5 8.6 12 6.5C13.5 8.6 15.5 11.5 15.5 14C15.5 14C15.5 15.9 13.9 17.5 12 17.5Z" />
   </svg>
 );
 
 // Aptos
-export const AptosIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const AptosIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={className}>
     <path d="M12 3L3 21H7.5L12 11.5L16.5 21H21L12 3Z" fill="currentColor" fillOpacity="0.2" />
     <line x1="6" y1="15" x2="18" y2="15" />
@@ -284,14 +284,14 @@ export const AptosIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h
 );
 
 // WalletConnect
-export const WalletConnectIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const WalletConnectIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M5.4 8.2C9 4.6 15 4.6 18.6 8.2L19.2 8.8C19.5 9.1 19.5 9.5 19.2 9.8L17.7 11.3C17.5 11.5 17.2 11.5 17 11.3L16.2 10.5C13.8 8.1 10.2 8.1 7.8 10.5L7 11.3C6.8 11.5 6.5 11.5 6.3 11.3L4.8 9.8C4.5 9.5 4.5 9.1 4.8 8.8L5.4 8.2ZM21.7 11.3L23.2 12.8C23.5 13.1 23.5 13.5 23.2 13.8L16.8 20.2C16.5 20.5 16.1 20.5 15.8 20.2L12 16.4L8.2 20.2C7.9 20.5 7.5 20.5 7.2 20.2L0.8 13.8C0.5 13.5 0.5 13.1 0.8 12.8L2.3 11.3C2.5 11.1 2.8 11.1 3 11.3L6.8 15.1L10.6 11.3C10.8 11.1 11.2 11.1 11.4 11.3L12 11.9L12.6 11.3C12.8 11.1 13.2 11.1 13.4 11.3L17.2 15.1L21 11.3C21.2 11.1 21.5 11.1 21.7 11.3Z" />
   </svg>
 );
 
 // USD Coin (USDC) / Circle - Official Circle USDC Logo
-export const UsdcIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const UsdcIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg
     viewBox="0 0 96 96"
     fill="none"
@@ -320,14 +320,14 @@ export const UsdcIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-
 export const CircleIcon = UsdcIcon;
 
 // LayerZero
-export const LayerZeroIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const LayerZeroIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 2L4 6V18L12 22L20 18V6L12 2ZM12 4.3L18 7.3V16.7L12 19.7L6 16.7V7.3L12 4.3ZM12 8.5C10.1 8.5 8.5 10.1 8.5 12C8.5 13.9 10.1 15.5 12 15.5C13.9 15.5 15.5 13.9 15.5 12C15.5 10.1 13.9 8.5 12 8.5Z" />
   </svg>
 );
 
 // Chainlink
-export const ChainlinkIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+export const ChainlinkIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 2L4 6.6V17.4L12 22L20 17.4V6.6L12 2ZM17.5 16L12 19.2L6.5 16V8L12 4.8L17.5 8V16ZM12 9.5L9 11.2V14.8L12 16.5L15 14.8V11.2L12 9.5Z" />
   </svg>

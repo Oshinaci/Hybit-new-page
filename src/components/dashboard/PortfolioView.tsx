@@ -139,18 +139,18 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onQuickAction }) =
 
   const totalPortfolioValue = assets.reduce((sum, a) => sum + a.value, 0);
 
-  const renderIcon = (id: string) => {
+  const renderIcon = (id: string, className = 'w-10 h-10 sm:w-11 sm:h-11') => {
     switch (id) {
       case 'eth':
-        return <EthereumIcon className="w-5 h-5 text-indigo-400" />;
+        return <EthereumIcon className={`${className} text-indigo-400`} />;
       case 'sol':
-        return <SolanaIcon className="w-5 h-5 text-emerald-400" />;
+        return <SolanaIcon className={className} />;
       case 'usdc':
-        return <CircleIcon className="w-5 h-5 text-sky-400" />;
+        return <CircleIcon className={className} />;
       case 'arb':
-        return <ArbitrumIcon className="w-5 h-5" />;
+        return <ArbitrumIcon className={className} />;
       default:
-        return <BaseIcon className="w-5 h-5 text-neutral-300" />;
+        return <BaseIcon className={`${className} text-neutral-300`} />;
     }
   };
 
@@ -285,23 +285,23 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onQuickAction }) =
           </div>
         </div>
 
-        {/* Tokens List (Unboxed - clean rows with dividers) */}
-        <div className="divide-y divide-white/[0.05]">
+        {/* Tokens List (Unboxed - clean rows with dividers, NOT card style) */}
+        <div className="divide-y divide-white/[0.06]">
           {filteredAssets.map((asset) => {
             const isPos = asset.change24h >= 0;
             return (
               <div
                 key={asset.id}
-                className="flex items-center justify-between py-3.5 px-2 hover:bg-white/[0.03] rounded-xl transition-all"
+                className="flex items-center justify-between py-4 px-1 hover:bg-white/[0.02] border-b border-white/[0.06] last:border-b-0 transition-colors group"
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-2xl bg-white/[0.05] border border-white/[0.06] flex items-center justify-center">
-                    {renderIcon(asset.id)}
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 shrink-0 flex items-center justify-center">
+                    {renderIcon(asset.id, 'w-10 h-10 sm:w-11 sm:h-11')}
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-white flex items-center gap-2">
-                      {asset.name}
-                      <span className="text-[10px] font-mono text-neutral-400">
+                    <div className="text-base font-bold text-white flex items-center gap-2">
+                      <span>{asset.name}</span>
+                      <span className="text-xs font-mono text-neutral-400">
                         {asset.symbol}
                       </span>
                     </div>
@@ -313,10 +313,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onQuickAction }) =
 
                 <div className="flex items-center gap-5">
                   <div className="text-right">
-                    <div className="text-sm font-bold text-white font-mono">
+                    <div className="text-base font-bold text-white font-mono">
                       {formatCurrency(asset.value)}
                     </div>
-                    <div className="text-xs font-mono flex items-center justify-end gap-1.5">
+                    <div className="text-xs font-mono flex items-center justify-end gap-1.5 mt-0.5">
                       <span className="text-neutral-400">{asset.balance} {asset.symbol}</span>
                       <span className={`font-semibold ${isPos ? 'text-emerald-400' : 'text-rose-400'}`}>
                         {isPos ? `+${asset.change24h}%` : `${asset.change24h}%`}

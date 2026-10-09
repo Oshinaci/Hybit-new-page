@@ -111,22 +111,22 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const getNetworkIcon = (id: string) => {
+  const getNetworkIcon = (id: string, className = 'w-5 h-5') => {
     switch (id) {
       case 'base':
-        return <BaseIcon className="w-4 h-4 text-[#0052FF]" />;
+        return <BaseIcon className={`${className} text-[#0052FF]`} />;
       case 'ethereum':
-        return <EthereumIcon className="w-4 h-4 text-indigo-400" />;
+        return <EthereumIcon className={`${className} text-indigo-400`} />;
       case 'solana':
-        return <SolanaIcon className="w-4 h-4 text-emerald-400" />;
+        return <SolanaIcon className={className} />;
       case 'arbitrum':
-        return <ArbitrumIcon className="w-4 h-4" />;
+        return <ArbitrumIcon className={className} />;
       case 'polygon':
-        return <PolygonIcon className="w-4 h-4" />;
+        return <PolygonIcon className={className} />;
       case 'optimism':
-        return <OptimismIcon className="w-4 h-4" />;
+        return <OptimismIcon className={className} />;
       default:
-        return <BaseIcon className="w-4 h-4 text-white" />;
+        return <BaseIcon className={`${className} text-white`} />;
     }
   };
 
@@ -187,25 +187,25 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               <span className="font-semibold text-white tracking-tight text-xs">Hybit ID</span>
             </button>
 
-            {/* Network Selector Card */}
+            {/* Network Selector Card (Matched to Hybit ID card button) */}
             <div className="relative" ref={networkRef}>
               <button
                 onClick={() => {
                   setNetworkDropdownOpen(!networkDropdownOpen);
                   setNotificationsOpen(false);
                 }}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#141419] border ${
+                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#141419] border ${
                   networkDropdownOpen
-                    ? 'border-[#0095FF] text-white'
-                    : 'border-white/10 hover:border-white/20 text-neutral-200 hover:text-white'
-                } shadow-md shadow-black/40 text-xs font-medium transition-colors duration-150 active:scale-[0.98] cursor-pointer select-none`}
+                    ? 'border-[#0095FF] text-white bg-[#181820]'
+                    : 'border-white/10 hover:border-white/20 hover:bg-[#181820] text-neutral-200 hover:text-white'
+                } shadow-sm shadow-black/40 text-xs font-medium transition-all duration-150 active:scale-[0.98] cursor-pointer select-none group`}
                 aria-label="Select Network"
               >
-                {getNetworkIcon(currentNetworkObj.id)}
-                <span className="hidden sm:inline font-medium">{currentNetworkObj.name}</span>
+                {getNetworkIcon(currentNetworkObj.id, 'w-4 h-4')}
+                <span className="hidden sm:inline font-semibold text-white tracking-tight text-xs">{currentNetworkObj.name}</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-200 ease-out ${
-                    networkDropdownOpen ? 'rotate-180 text-white' : ''
+                  className={`w-3 h-3 text-neutral-400 transition-transform duration-200 ease-out ${
+                    networkDropdownOpen ? 'rotate-180 text-[#0095FF]' : 'group-hover:text-white'
                   }`}
                 />
               </button>
@@ -268,11 +268,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                   setNotificationsOpen(!notificationsOpen);
                   setNetworkDropdownOpen(false);
                 }}
-                className={`p-2.5 rounded-2xl bg-[#141419] border ${
+                className={`p-2 rounded-xl bg-[#141419] border ${
                   notificationsOpen
-                    ? 'border-[#0095FF] text-white'
-                    : 'border-white/10 hover:border-white/20 text-neutral-300 hover:text-white'
-                } shadow-md shadow-black/40 transition-colors duration-150 active:scale-[0.98] relative cursor-pointer select-none`}
+                    ? 'border-[#0095FF] text-white bg-[#181820]'
+                    : 'border-white/10 hover:border-white/20 hover:bg-[#181820] text-neutral-300 hover:text-white'
+                } shadow-sm shadow-black/40 transition-all duration-150 active:scale-[0.98] relative cursor-pointer select-none`}
                 aria-label="Notifications"
               >
                 <Bell

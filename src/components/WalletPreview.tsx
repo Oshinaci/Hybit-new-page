@@ -111,10 +111,10 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
   const calculatedOutput = ((parseFloat(swapFromAmount || '0') * fromPrice) / toPrice).toFixed(2);
 
   const previewTokenOptions = [
-    { symbol: 'ETH', name: 'Ethereum', icon: <EthereumIcon className="w-4 h-4 text-indigo-400" /> },
-    { symbol: 'USDC', name: 'USD Coin', icon: <CircleIcon className="w-4 h-4 text-sky-400" /> },
-    { symbol: 'SOL', name: 'Solana', icon: <SolanaIcon className="w-4 h-4 text-emerald-400" /> },
-    { symbol: 'ARB', name: 'Arbitrum', icon: <ArbitrumIcon className="w-4 h-4" /> },
+    { symbol: 'ETH', name: 'Ethereum', icon: <EthereumIcon className="w-5 h-5 text-indigo-400" /> },
+    { symbol: 'USDC', name: 'USD Coin', icon: <CircleIcon className="w-5 h-5" /> },
+    { symbol: 'SOL', name: 'Solana', icon: <SolanaIcon className="w-5 h-5" /> },
+    { symbol: 'ARB', name: 'Arbitrum', icon: <ArbitrumIcon className="w-5 h-5" /> },
   ];
 
   return (
@@ -248,7 +248,7 @@ export const WalletPreview: React.FC<{ onLaunchApp?: () => void }> = ({ onLaunch
                   return (
                     <div key={item.symbol} className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
                       <div className="flex items-center gap-2 mb-1.5">
-                        <Icon className="w-4 h-4 text-neutral-300" />
+                        <Icon className="w-5 h-5 text-neutral-300" />
                         <span className="text-xs font-semibold text-white">{item.symbol}</span>
                         <span className="text-[10px] text-neutral-500 ml-auto font-mono">{item.pct}</span>
                       </div>

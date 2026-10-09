@@ -110,28 +110,28 @@ export const Ecosystem: React.FC = () => {
     },
   ];
 
-  const getNetworkIcon = (id: string) => {
+  const getNetworkIcon = (id: string, className = 'w-9 h-9 sm:w-10 sm:h-10') => {
     switch (id) {
       case 'ethereum':
-        return <EthereumIcon className="w-6 h-6 text-indigo-400" />;
+        return <EthereumIcon className={`${className} text-indigo-400`} />;
       case 'base':
-        return <BaseIcon className="w-6 h-6 text-[#0052FF]" />;
+        return <BaseIcon className={`${className} text-[#0052FF]`} />;
       case 'arbitrum':
-        return <ArbitrumIcon className="w-6 h-6" />;
+        return <ArbitrumIcon className={className} />;
       case 'optimism':
-        return <OptimismIcon className="w-6 h-6" />;
+        return <OptimismIcon className={className} />;
       case 'polygon':
-        return <PolygonIcon className="w-6 h-6" />;
+        return <PolygonIcon className={className} />;
       case 'bnb':
-        return <BNBIcon className="w-6 h-6 text-amber-400" />;
+        return <BNBIcon className={`${className} text-amber-400`} />;
       case 'solana':
-        return <SolanaIcon className="w-6 h-6 text-emerald-400" />;
+        return <SolanaIcon className={className} />;
       case 'sui':
-        return <SuiIcon className="w-6 h-6 text-sky-400" />;
+        return <SuiIcon className={`${className} text-sky-400`} />;
       case 'aptos':
-        return <AptosIcon className="w-6 h-6 text-teal-400" />;
+        return <AptosIcon className={`${className} text-teal-400`} />;
       default:
-        return <Globe2 className="w-6 h-6 text-white" />;
+        return <Globe2 className={`${className} text-white`} />;
     }
   };
 
@@ -190,8 +190,8 @@ export const Ecosystem: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-center">
-                      {getNetworkIcon(net.id)}
+                    <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0">
+                      {getNetworkIcon(net.id, 'w-9 h-9 sm:w-10 sm:h-10')}
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-white">{net.name}</h3>

@@ -159,18 +159,18 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
     },
   ];
 
-  const renderAssetIcon = (id: string) => {
+  const renderAssetIcon = (id: string, className = 'w-10 h-10 sm:w-11 sm:h-11') => {
     switch (id) {
       case 'eth':
-        return <EthereumIcon className="w-5 h-5 text-indigo-400" />;
+        return <EthereumIcon className={`${className} text-indigo-400`} />;
       case 'sol':
-        return <SolanaIcon className="w-5 h-5 text-emerald-400" />;
+        return <SolanaIcon className={className} />;
       case 'usdc':
-        return <CircleIcon className="w-5 h-5 text-sky-400" />;
+        return <CircleIcon className={className} />;
       case 'arb':
-        return <ArbitrumIcon className="w-5 h-5" />;
+        return <ArbitrumIcon className={className} />;
       default:
-        return <BaseIcon className="w-5 h-5 text-neutral-300" />;
+        return <BaseIcon className={`${className} text-neutral-300`} />;
     }
   };
 
@@ -289,36 +289,37 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({
           </button>
         </div>
 
-        <div className="divide-y divide-white/[0.05]">
+        <div className="divide-y divide-white/[0.06]">
           {portfolioAssets.map((asset) => {
             const isPos = asset.change24h >= 0;
             return (
               <div
                 key={asset.id}
                 onClick={onNavigateToPortfolio}
-                className="flex items-center justify-between py-3.5 px-2 hover:bg-white/[0.03] rounded-xl transition-all cursor-pointer group"
+                className="flex items-center justify-between py-4 px-1 hover:bg-white/[0.02] border-b border-white/[0.06] last:border-b-0 transition-colors cursor-pointer group"
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-2xl bg-white/[0.05] border border-white/[0.06] flex items-center justify-center">
-                    {renderAssetIcon(asset.id)}
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 shrink-0 flex items-center justify-center">
+                    {renderAssetIcon(asset.id, 'w-10 h-10 sm:w-11 sm:h-11')}
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-white group-hover:text-[#0095FF] transition-colors">
-                      {asset.symbol}
+                    <div className="text-base font-bold text-white group-hover:text-[#0095FF] transition-colors flex items-center gap-2">
+                      <span>{asset.symbol}</span>
+                      <span className="text-xs font-normal text-neutral-400 font-sans">
+                        {asset.name}
+                      </span>
                     </div>
-                    <div className="text-xs text-neutral-400 flex items-center gap-1.5 font-mono">
-                      <span>{asset.name}</span>
-                      <span className="text-neutral-600">·</span>
-                      <span className="text-neutral-400">{asset.chain}</span>
+                    <div className="text-xs text-neutral-400 font-mono mt-0.5">
+                      <span>{asset.chain}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-sm font-bold text-white font-mono">
+                  <div className="text-base font-bold text-white font-mono">
                     {balanceHidden ? '••••••' : formatCurrency(asset.value)}
                   </div>
-                  <div className="text-xs font-mono flex items-center justify-end gap-1.5">
+                  <div className="text-xs font-mono flex items-center justify-end gap-1.5 mt-0.5">
                     <span className="text-neutral-400">{balanceHidden ? '••' : `${asset.balance} ${asset.symbol}`}</span>
                     <span className={`font-semibold ${isPos ? 'text-emerald-400' : 'text-rose-400'}`}>
                       {isPos ? `+${asset.change24h}%` : `${asset.change24h}%`}

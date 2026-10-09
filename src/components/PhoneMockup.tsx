@@ -80,7 +80,7 @@ export const PhoneMockup: React.FC = () => {
       change: '+4.25%',
       isPos: true,
       val: '$24,353.96',
-      icon: <EthereumIcon className="w-5 h-5 text-indigo-400" />,
+      icon: <EthereumIcon className="w-8 h-8 text-indigo-400" />,
     },
     {
       id: 'sol',
@@ -91,7 +91,7 @@ export const PhoneMockup: React.FC = () => {
       change: '+7.82%',
       isPos: true,
       val: '$11,448.03',
-      icon: <SolanaIcon className="w-5 h-5 text-emerald-400" />,
+      icon: <SolanaIcon className="w-8 h-8" />,
     },
     {
       id: 'usdc',
@@ -102,7 +102,7 @@ export const PhoneMockup: React.FC = () => {
       change: '+0.01%',
       isPos: true,
       val: '$5,116.25',
-      icon: <CircleIcon className="w-5 h-5 text-sky-400" />,
+      icon: <CircleIcon className="w-8 h-8" />,
     },
     {
       id: 'arb',
@@ -113,7 +113,7 @@ export const PhoneMockup: React.FC = () => {
       change: '-1.45%',
       isPos: false,
       val: '$2,000.00',
-      icon: <ArbitrumIcon className="w-5 h-5" />,
+      icon: <ArbitrumIcon className="w-8 h-8" />,
     },
   ];
 
@@ -461,15 +461,15 @@ export const PhoneMockup: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Asset List Rows */}
-                    <div className="divide-y divide-white/[0.05]">
+                    {/* Asset List Rows (Unboxed, direct clean icons) */}
+                    <div className="divide-y divide-white/[0.06]">
                       {assets.map((asset) => (
                         <div
                           key={asset.id}
-                          className="flex items-center justify-between py-2.5 px-1 rounded-xl hover:bg-white/[0.02] transition-colors"
+                          className="flex items-center justify-between py-2.5 px-0.5 border-b border-white/[0.05] last:border-b-0 hover:bg-white/[0.02] transition-colors"
                         >
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-8 h-8 rounded-xl bg-white/[0.05] border border-white/[0.06] flex items-center justify-center shrink-0">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 shrink-0 flex items-center justify-center">
                               {asset.icon}
                             </div>
                             <div>
